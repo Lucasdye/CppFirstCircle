@@ -12,49 +12,55 @@
 
 #include "../incs/ClapTrap.hpp"
 
-//-------------------- Member funcs -------------------------------------------//
+//-------------------- Methods ----------------------------------------------//
 void ClapTrap::attack(const std::string &target)
 {
-	//std::cout << "hitpoint of attacker " << _hitPoints << std::endl;
-	if (_energyPoints > 0 && _hitPoints > 0)
-	{	
-		std::cout << _name << " kicks " <<  target << " causing " << _attackDamage << " points of damage !" << std::endl;
-		_energyPoints = _energyPoints - 1;
-	}
-	else if (_energyPoints <= 0)
-		std::cout << _name << " has no energy left to attack !" << std::endl;
+	if (_energyPoints == 0)
+		std::cout << _name << " has no energy left to attack ! 🪫" << std::endl;
+	else if (_hitPoints == 0)
+		std::cout << _name << " Can't attack, his dead ! 💀" << std::endl;
 	else
-		std::cout << _name << " can't attack, he's already dead !" << std::endl;
+	{	
+		std::cout << _name << " attacks " <<  target << ", causing " << _attackDamage << " points of damage ! 🩸" << std::endl;
+		_energyPoints -= 1;
+	}
 	return ;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	if (_hitPoints == 0)
-		std::cout << _name << " can't take anymore damages cause his already dead !" << std::endl;
-	else if (_hitPoints <= amount)
+	long long diff;
+
+	diff = static_cast<long long>(_hitPoints) - static_cast<long long>(amount);
+	std::cout << "diff is : " << diff << std::endl;
+	if (diff <= 0)
 	{	
-		if (_hitPoints < amount)
-			std::cout << _name << " dies from this attack !" << std::endl;
-		_hitPoints = 0;
+		if (_hitPoints != 0)
+		{	
+			std::cout << _name << " dies from this attack ! 🪦" << std::endl;
+			_hitPoints = 0;
+		}
+		else
+			std::cout << _name << " Can't take damages, his already dead ! 💀" << std::endl;
 	}
 	else
 	{
 		_hitPoints = _hitPoints - amount;
-		std::cout << _name << " has " << _hitPoints << " pv" <<" left" << std::endl;
+		std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
 	}
 	return ;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	if (_energyPoints > 0)
+	if (_energyPoints != 0)
 	{	
-		_hitPoints = _hitPoints + amount;
-		std::cout << _name << " has regenerated " << amount << " hitpoints" << std::endl;
+		_hitPoints += amount;
+		_energyPoints -= 1;
+		std::cout << _name << " has +" << amount << " hit points 💗" << std::endl;
 	}
-	else
-		std::cout << _name << " has no energy left to regenerate itself !" << std::endl;
+	else if (_energyPoints == 0)
+		std::cout << _name << " has no energy point left to regenerate itself !" << std::endl;
 	return ;
 }
 

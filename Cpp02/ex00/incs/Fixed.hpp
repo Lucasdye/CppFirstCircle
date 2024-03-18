@@ -31,7 +31,7 @@ class Fixed
     			Fixed(Fixed const &src);
 				~Fixed();
 	//-------------------- Operators ----------------------------------------//
-    			Fixed& operator=(Fixed const &instance);
+    	Fixed&	operator=(Fixed const &instance);
 };
 
 #endif

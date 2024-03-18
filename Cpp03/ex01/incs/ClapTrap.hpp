@@ -32,19 +32,21 @@ class ClapTrap
 		int				_attackDamage;
 
 	public:
-//-------------------- Member funcs -----------------------------------------//
+	//-------------------- Member funcs ---------------------------------------//
 		void attack(const std::string& target);
 		void takeDamage(unsigned int amount);
 		void beRepaired(unsigned int amount);
-//-------------------- Set/get ----------------------------------------------//
+	//-------------------- Set/get --------------------------------------------//
 		int		getAttackPoints();
 		void	setEnergyPoints();
 		void	setAttackDamage(int value);
-//-------------------- Canonical form ---------------------------------------//
+	//-------------------- Canonical form -------------------------------------//
     	ClapTrap(std::string name);
     	ClapTrap(ClapTrap const &src);
-    	ClapTrap& operator=(ClapTrap const &instance);
     	~ClapTrap();
+	//-------------------- Canonical form -------------------------------------//
+    	ClapTrap& operator=(ClapTrap const &instance);
+
 };
 
 #endif

@@ -12,12 +12,9 @@
 
 #include "../incs/Fixed.hpp"
 
-//	---------------------	Statics var		---------------------------------//
-
+//	-------------------- Statics var -------------------------------------//
 const int Fixed::_staticFractionalBits = 8;
-
-//	---------------------	Statics funcs surchargees	---------------------//
-
+//	-------------------- Statics funcs surchargees	---------------------//
 Fixed Fixed::min(Fixed &a,Fixed &b)
 {
 	return ((a._fixedPointValue < b._fixedPointValue) ? a : b);
@@ -37,25 +34,35 @@ Fixed Fixed::max(const Fixed &a,const Fixed &b)
 {
 	return ((a._fixedPointValue > b._fixedPointValue) ? a : b);
 }
+//	-------------------- Methods   -------------------------------------------//
 
-//-------------------- Funcs membres ----------------------------------------//
-
-int		Fixed::toInt(void) const
+bool	Fixed::checkFixedPointOverflow(int a)	const
 {
-	return (roundf(this->_fixedPointValue >> _staticFractionalBits));
+	if (a > 16777215)
+	{	
+		std::cout << YELLOW << "You're using all bits for the integer part, at least 8 bits should be reserverd to the decimal part"
+		<< " please don't exceed the value 16.777.215" << END_C <<std::endl;
+		return (true);
+	}
+	else 
+		return (false);
 }
 
-float	Fixed::toFloat(void) const
+int		Fixed::toInt(void)						const
 {
-//-------------------- Notes -----------------------------------------------//
-	/*	Le static_cast est plus spécifique et plus sûr que le cast C-style.
-		Il est utilisé pour les conversions de types qui ne nécessitent pas 
-		de changement de représentation binaire du type.
+	return (roundf(_fixedPointValue >> _staticFractionalBits));
+}
+
+float	Fixed::toFloat(void) 					const
+{
+	/*-----	Notes
+		Le static_cast est plus spécifique et plus sûr que le cast C-style.
+		Il est utilisé pour les conversions de types qui nécessitent 
+		une nouvelle représentation binaire du type.
 	*/
 	return (static_cast<float>(_fixedPointValue) / (1 << _staticFractionalBits));
 }
-
-//	--------------------- Get/Set -------------------------------------------//
+//	---------------------	Get/Set    --------------------------------------//
 
 int Fixed::getRawBits(void) const
 {
@@ -69,43 +76,40 @@ void Fixed::setRawBits(int const raw)
 	return ;
 }
 
-//------------------------ Contructors/Destructor ------------------------------//
+//	---------------------	Contructors/Destructor	-------------------------//
 Fixed::Fixed() : _fixedPointValue(0)
 {
 	std::cout << "Default constructor called for Fixed" << std::endl;
 	return ;
 }
 
-Fixed::Fixed(const float a)
+Fixed::Fixed(const float a): _fixedPointValue(0)
 {
-
-	/*	--------------------- Explications ------------------------------------//
-		<< _staticFractionalBits revient a multiplier par 2^_staticFractionalBits 
-		le float en parametre (=256). les bits sont alors decales de 8 positions 
-		vers la gauche. Ainsi, les 8 permiers bits de l'entier represente la partie 
-		fractionnaire du nombre a virgule fixe.
-		La partie entiere est definie sur les 3 autres bytes restant de l'int 
-		(- 1 bit car signe)
-	*/
 	std::cout << "Float constructor called" << std::endl;
-	if (roundf(a * (1 << this->_staticFractionalBits)) > INT_MAX)
-		std::cout << "Int overflow" << std::endl << "Please use smaller values for a valid reprensation" << std::endl;
+	if (roundf(a * (1 << _staticFractionalBits)) > INT_MAX)
+	{
+		std::cout << YELLOW << "Int overflow" << std::endl 
+		<< "Please use smaller values for a valid reprensation" << END_C << std::endl;
+	}
 	else
-		this->_fixedPointValue = roundf((a * (1 << this->_staticFractionalBits)));
+		_fixedPointValue = roundf((a * (1 << _staticFractionalBits)));
 	return ;
 }
 
-Fixed::Fixed(const int a)
+Fixed::Fixed(const int a): _fixedPointValue(0)
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->_fixedPointValue = a << _staticFractionalBits;
+	if (checkFixedPointOverflow(a))
+		return ;
+	else
+		_fixedPointValue = a << _staticFractionalBits;
 	return ;
 }
 
-Fixed::Fixed(Fixed const &src)
+Fixed::Fixed(Fixed const &src): _fixedPointValue(0)
 {
 	std::cout << "Copy constructor called for Fixed" << std::endl;
-	this->_fixedPointValue = src._fixedPointValue;
+	_fixedPointValue = src._fixedPointValue;
 }
 
 Fixed::~Fixed()
@@ -114,7 +118,8 @@ Fixed::~Fixed()
 	return ;
 }
 
-//	---------------------	Operators    ---------------------
+//	---------------------	Operators    ------------------------------------//
+//----- Equality
 Fixed&	Fixed::operator=(Fixed const &instance)
 {
 	std::cout << "Copy assignment operator called for Fixed" << std::endl;
@@ -123,7 +128,7 @@ Fixed&	Fixed::operator=(Fixed const &instance)
 	return *this;
 }
 
-// de comparaison
+//----- Comparison
 bool Fixed::operator<(Fixed const & instance)
 {
 	if (this->_fixedPointValue < instance._fixedPointValue)
@@ -166,13 +171,13 @@ bool Fixed::operator<=(Fixed const &instance)
 
 bool Fixed::operator!=(Fixed const &instance)
 {
-	if (this->_fixedPointValue <= instance._fixedPointValue)
+	if (this->_fixedPointValue != instance._fixedPointValue)
 		return (true);
 	else 
 		return (false);
 }
 
-// arithmetiques
+//----- Arithmetics
 Fixed Fixed::operator+(Fixed const &instance)
 {
 	return (this->_fixedPointValue + instance._fixedPointValue);
@@ -193,7 +198,7 @@ Fixed Fixed::operator/(Fixed const &instance)
 	return (this->_fixedPointValue / instance._fixedPointValue);
 }
 
-// Pré-incrémentation
+//----- Pre-incremenation
 Fixed& Fixed::operator++() 
 {
     // Augmente la valeur de l'unité ε
@@ -201,15 +206,15 @@ Fixed& Fixed::operator++()
     return *this;
 }
 
-// Post-incrémentation
+//----- Post-incremenation
 Fixed Fixed::operator++(int) 
 {
     Fixed temp = *this;	// Copie de l'objet actuel
-    ++(*this);			// Utilise la pré-incrémentation
+    ++(*this);			// Utilise la pré-incrémentation définie au-dessus
     return temp;		// Retourne la copie non modifiée
 }
 
-// Pré-décrémentation
+//----- Pre-decrementation
 Fixed& Fixed::operator--() 
 {
     // Diminue la valeur de l'unité ε
@@ -217,12 +222,12 @@ Fixed& Fixed::operator--()
     return *this;
 }
 
-// Post-décrémentation
+//----- Post-decrementation
 Fixed Fixed::operator--(int) 
 {
-    Fixed temp = *this; // Copie de l'objet actuel
-    --(*this); // Utilise la pré-décrémentation
-    return temp; // Retourne la copie non modifiée
+    Fixed temp = *this;	// Copie de l'objet actuel
+    --(*this);			// Utilise la pré-décrémentation définie au-dessus
+    return temp;		// Retourne la copie non modifiée
 }
 
 

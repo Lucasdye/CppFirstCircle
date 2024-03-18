@@ -12,8 +12,6 @@
 
 #include "../incs/Fixed.hpp"
 
-
-
 const int Fixed::_staticFractionalBits = 8;
 
 //-------------------- Methods ----------------------------------------------//
@@ -53,7 +51,7 @@ Fixed::~Fixed()
 //-------------------- Operators --------------------------------------------//
 Fixed	&Fixed::operator=(Fixed const &instance)
 {
-	std::cout << "Assignment operator called for Fixed" << std::endl;
+	std::cout << "Copy assignment operator called for Fixed" << std::endl;
 	if (this != &instance)
 		_fixedPointValue = instance._fixedPointValue;
 	return *this;

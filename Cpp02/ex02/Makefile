@@ -1,6 +1,6 @@
 NAME = prg
-CC = g++
-CFLAGS = -g -Wall -Wextra -Werror -std=c++98 
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98 
 OBJ_DIR = objs/
 
 SRC = srcs/main.cpp srcs/Fixed.cpp srcs/funcOperator.cpp

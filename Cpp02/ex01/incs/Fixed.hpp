@@ -33,17 +33,23 @@ class Fixed
 		static const int	_staticFractionalBits;
 		
 	public:
-    	int		getRawBits( void ) const;// Le suffix const du proto indique que la méthode ne modifiera pas l'état de l'objet sur lequel elle est appelée.
-		void	setRawBits( int const raw );
-		float	toFloat( void ) const;
-		int		toInt( void ) const;
+	//-------------------- Methods ------------------------------------------//
+		float	toFloat(void)	const;
+		int		toInt(void)		const;
+		bool	checkFixedPointOverflow(int a)	const;
+	//-------------------- Set/get ------------------------------------------//
+		int		getRawBits(void) const;// Le suffix const du proto indique que la méthode ne modifiera pas l'état de l'objet sur lequel elle est appelée.
+		void	setRawBits(int const raw);
+	//-------------------- Cons/Des -----------------------------------------//
+				Fixed();
 				Fixed(const int a);
-    			Fixed();// Contructor par defaut
-    			Fixed(const float a);// Contructor avec arg float qui convertit en eniter a virgule fixe
-    			Fixed(Fixed const & src);// Constructeur par copie
-    			Fixed& operator=(Fixed const & instance);// Operateur d'affectation
-				~Fixed();// Deconstructor
+    			Fixed(Fixed const & src);
+				~Fixed();
+				Fixed(const float a);
+	//-------------------- Operators ----------------------------------------//
+    	Fixed			&operator=(Fixed const & instance);// Operateur d'affectation
 };
 
+std::ostream &operator<<(std::ostream &out, Fixed const &inst);
 #endif
 

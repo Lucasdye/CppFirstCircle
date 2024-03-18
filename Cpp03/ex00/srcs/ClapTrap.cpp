@@ -12,47 +12,59 @@
 
 #include "../incs/ClapTrap.hpp"
 
-//-------------------- Member funcs -------------------------------------------//
+//-------------------- Methods ----------------------------------------------//
 void ClapTrap::attack(const std::string &target)
 {
-	if (_energyPoints > 0 && _hitPoints > 0)
-		std::cout << _name << " attacks " <<  target << " causing " << _attackDamage << " points of damage !" << std::endl;
+	if (_energyPoints == 0)
+		std::cout << _name << " has no energy left to attack ! 🪫" << std::endl;
+	else if (_hitPoints == 0)
+		std::cout << _name << " Can't attack, his dead ! 💀" << std::endl;
 	else
-		std::cout << _name << "has no energy left to attack !" << std::endl;
+	{	
+		std::cout << _name << " attacks " <<  target << ", causing " << _attackDamage << " points of damage ! 🩸" << std::endl;
+		_energyPoints -= 1;
+	}
 	return ;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	if (_hitPoints > 0)
+	long long diff;
+
+	diff = static_cast<long long>(_hitPoints) - static_cast<long long>(amount);
+	std::cout << "diff is : " << diff << std::endl;
+	if (diff <= 0)
 	{	
-		if ((int)(_hitPoints - amount) < 0)
-			std::cout << _name << " dies from this attack !" << std::endl;
-		else
-		{
-			std::cout << _name << " has " << _hitPoints << " before taking damages" << std::endl;
-			_hitPoints = _hitPoints - amount;
-			std::cout << _name << " has " << _hitPoints << " hitpoints left" << std::endl;
+		if (_hitPoints != 0)
+		{	
+			std::cout << _name << " dies from this attack ! 🪦" << std::endl;
+			_hitPoints = 0;
 		}
+		else
+			std::cout << _name << " Can't take damages, his already dead ! 💀" << std::endl;
 	}
 	else
-		std::cout << _name << " is already dead !" << std::endl;
+	{
+		_hitPoints = _hitPoints - amount;
+		std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
+	}
 	return ;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	if (_energyPoints > 0 && _hitPoints > 0)
+	if (_energyPoints != 0)
 	{	
 		_hitPoints += amount;
-		std::cout << _name << " has " << amount << " regenerated" << std::endl;
+		_energyPoints -= 1;
+		std::cout << _name << " has +" << amount << " hit points 💗" << std::endl;
 	}
-	else
-		std::cout << _name << " has no energy left to regenerate itself !" << std::endl;
+	else if (_energyPoints == 0)
+		std::cout << _name << " has no energy point left to regenerate itself !" << std::endl;
 	return ;
 }
 
-//-------------------- Constructor/Destructor ---------------------------------//
+//-------------------- Constructor/Destructor -------------------------------//
 ClapTrap::ClapTrap(std::string name) :_name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
 	std::cout << "Default constructor called for ClapTrap" << std::endl;
@@ -70,8 +82,8 @@ ClapTrap::~ClapTrap()
 	std::cout << "Destructor called for ClapTrap" << std::endl;
 	return ;
 }
-//-------------------- Operator ---------------------------------------------//
 
+//-------------------- Operator ---------------------------------------------//
 ClapTrap&	ClapTrap::operator=(ClapTrap const &instance)
 {
 	std::cout << "Assignment operator called for ClapTrap" << std::endl;

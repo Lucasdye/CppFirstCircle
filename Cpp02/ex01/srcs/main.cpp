@@ -10,39 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../incs/Fixed.hpp"
-# include "../incs/funcOperator.hpp"
-# include <iostream>
+# include "../incs/base.hpp"
 
 int main( void ) 
 {
 	Fixed a;
 	Fixed const b(10);
-	Fixed const c(42.42f);
+	Fixed const c(42.42f);//the "f" precises that it's not a double.
 	Fixed const d(b);
-	// Ces lignes decrivent le comportement de 
-	// l'instrution suivante
+	Fixed const e(-42.42f);
+	Fixed const f(17000000);
+	Fixed const g(0.12f);
+	float		fE = 0.12f;
 	
-	// I )Construction de l'objet temporaire : 
-	// L'instruction Fixed(1234.4321f) appelle le constructeur 
-	// de votre classe Fixed qui prend un float en paramètre. 
-	// Ce constructeur est responsable de convertir 
-	// la valeur flottante en une représentation à virgule fixe 
-	// et de stocker cette valeur dans l'attribut 
-	// integer de l'objet Fixed créé. 
-	// La chaîne "Float constructor called" sera affichée 
-	// dans la console à ce moment, indiquant que ce constructeur a été appelé.
-	
-	// II) Opération d'affectation : 
-	// Après la construction de l'objet temporaire, 
-	// l'opérateur d'affectation (=) est appelé 
-	// pour assigner la valeur de l'objet temporaire à l'objet a. 
-	// Si a est déjà initialisé, 
-	// c'est l'opérateur de surcharge = qui est invoqué 
-	// pour copier la valeur de l'attribut integer 
-	// de l'objet temporaire dans a. 
-	// La chaîne "Copy assignment operator called for Fixed" 
-	// sera affichée, indiquant que cet opérateur a été utilisé.
 	a = Fixed(1234.4321f);
 	std::cout << "a is " << a << std::endl;
 	std::cout << "b is " << b << std::endl;
@@ -52,5 +32,11 @@ int main( void )
 	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
 	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
 	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+	std::cout << "e is " << e.toInt() << " as integer" << std::endl;
+	std::cout << "f is " << f.toInt() << " as integer" << std::endl;
+	std::cout << "g is " << g << " as float" << std::endl;
+	std::cout << "g is " << g.toInt() << " as integer" << std::endl;
+	std::cout << "g is " << g.toInt() << " as integer" << std::endl;
+	std::cout << "fE is " << fE << std::endl;
 	return (0);
 }
