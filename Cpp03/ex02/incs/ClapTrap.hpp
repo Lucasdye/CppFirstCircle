@@ -6,22 +6,14 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 14:45:03 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/01 17:30:26 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:03:39 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLAPTRAP_HPP
 # define CLAPTRAP_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
+# include "base.hpp"
 
 class ClapTrap
 {
@@ -32,19 +24,23 @@ class ClapTrap
 		int				_attackDamage;
 
 	public:
-//-------------------- Member funcs -----------------------------------------//
-		void attack(const std::string& target);
-		void takeDamage(unsigned int amount);
-		void beRepaired(unsigned int amount);
-//-------------------- Set/get ----------------------------------------------//
-		int		getAttackPoints();
-		void	setEnergyPoints();
-		void	setAttackDamage(int value);
-//-------------------- Canonical form ---------------------------------------//
-    	ClapTrap(std::string name);
-    	ClapTrap(ClapTrap const &src);
-    	ClapTrap& operator=(ClapTrap const &instance);
-    	~ClapTrap();
+	// -------------------- Methods -------------------------------------------//
+		void virtual	attack(const std::string& target);
+		void virtual	takeDamage(unsigned int amount);
+		void 			beRepaired(unsigned int amount);
+	// -------------------- Set/get -------------------------------------------//
+		unsigned int	getAttackPoints();
+		unsigned int	getHitPoints();
+		std::string		getName();
+		void			setEnergyPoints(int value);
+		void			setAttackDamage(int value);
+	// -------------------- Cons/Des ------------------------------------------//
+    					ClapTrap(std::string name);
+    					ClapTrap(ClapTrap const &src);
+    					~ClapTrap();
+	// -------------------- Operators ------------------------------------//
+    	ClapTrap&		operator=(ClapTrap const &instance);
+
 };
 
 #endif

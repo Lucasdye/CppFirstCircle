@@ -42,7 +42,7 @@ float	Fixed::toFloat(void) const
 		Il est utilisé pour les conversions de types qui nécessitent 
 		une nouvelle représentation binaire du type.
 	*/
-	return (static_cast<float>(_fixedPointValue) / ( 1 << _staticFractionalBits));
+	return (<float>(_fixedPointValue) / ( 1 << _staticFractionalBits));
 }
 
 //	---------------------	Get/Set    ---------------------

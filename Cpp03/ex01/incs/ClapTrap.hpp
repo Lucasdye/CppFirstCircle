@@ -13,15 +13,7 @@
 #ifndef CLAPTRAP_HPP
 # define CLAPTRAP_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
+# include "base.hpp"
 
 class ClapTrap
 {
@@ -32,20 +24,22 @@ class ClapTrap
 		int				_attackDamage;
 
 	public:
-	//-------------------- Member funcs ---------------------------------------//
-		void attack(const std::string& target);
-		void takeDamage(unsigned int amount);
-		void beRepaired(unsigned int amount);
-	//-------------------- Set/get --------------------------------------------//
-		int		getAttackPoints();
-		void	setEnergyPoints();
-		void	setAttackDamage(int value);
-	//-------------------- Canonical form -------------------------------------//
-    	ClapTrap(std::string name);
-    	ClapTrap(ClapTrap const &src);
-    	~ClapTrap();
-	//-------------------- Canonical form -------------------------------------//
-    	ClapTrap& operator=(ClapTrap const &instance);
+	// -------------------- Methods -------------------------------------------//
+		void virtual	attack(const std::string& target);
+		void virtual	takeDamage(unsigned int amount);
+		void 			beRepaired(unsigned int amount);
+	// -------------------- Set/get -------------------------------------------//
+		unsigned int	getAttackPoints();
+		unsigned int	getHitPoints();
+		std::string		getName();
+		void			setEnergyPoints(int value);
+		void			setAttackDamage(int value);
+	// -------------------- Cons/Des ------------------------------------------//
+    					ClapTrap(std::string name);
+    					ClapTrap(ClapTrap const &src);
+    					~ClapTrap();
+	// -------------------- Operators ------------------------------------//
+    	ClapTrap&		operator=(ClapTrap const &instance);
 
 };
 

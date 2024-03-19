@@ -67,19 +67,19 @@ void ClapTrap::beRepaired(unsigned int amount)
 //-------------------- Constructor/Destructor -------------------------------//
 ClapTrap::ClapTrap(std::string name) :_name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "Default constructor called for ClapTrap" << std::endl;
+	std::cout << "Default constructor called for ClapTrap	" << _name << std::endl;
 	return ;
 }
 
 ClapTrap::ClapTrap(ClapTrap const &src) : _name(src._name), _hitPoints(src._hitPoints), _energyPoints(src._energyPoints), _attackDamage(src._attackDamage)
 {
-	std::cout << "Copy constructor called for ClapTrap" << std::endl;
+	std::cout << "Copy constructor called for ClapTrap		" << _name << std::endl;
 	return ;
 }
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "Destructor called for ClapTrap" << std::endl;
+	std::cout << "Default destructor called for	ClapTrap	" << _name << std::endl;
 	return ;
 }
 

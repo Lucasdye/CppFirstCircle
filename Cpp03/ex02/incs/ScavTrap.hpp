@@ -13,29 +13,22 @@
 #ifndef SCAVTRAP_HPP
 # define SCAVTRAP_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
-#include "ClapTrap.hpp"
+# include "base.hpp"
 
 class ScavTrap : public ClapTrap
 {
-	public :
-	//-------------------- Redeclaration ------------------------------------//
-    	ScavTrap(std::string name);
-		~ScavTrap();
-    	ScavTrap(ScavTrap const & src);
-		void attack(const std::string &target);
-	//-------------------- Fonctions persos ---------------------------------//
-		void guardGate();
 	private :
+		bool	_guardGate;
+
+	public :
+	// -------------------- Methods -----------------------------------//
+		void			attack(const std::string& target);
+		void			takeDamage(unsigned int amount);
+		void			guardGate();
+	// -------------------- Cons/des -----------------------------------//
+						ScavTrap(std::string name);
+						ScavTrap(ScavTrap const & src);
+						~ScavTrap();
 };
 
 #endif
-
