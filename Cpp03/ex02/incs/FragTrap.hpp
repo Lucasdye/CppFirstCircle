@@ -5,15 +5,19 @@
 
 class FragTrap : public ClapTrap
 {
-	public :
-	//-------------------- Cons/Des -----------------------------------------//
-    	FragTrap(std::string name);
-    	FragTrap(FragTrap const & src);
-		~FragTrap();
-		void attack(const std::string &target);
-	//-------------------- Fonctions persos ---------------------------------//
-		void highFiveGuys();
 	private :
+	
+	public :
+	//-------------------- Methods ------------------------------------------//
+		void		attack(const std::string &target);
+		void		highFivesGuys();
+	//-------------------- Set/get ------------------------------------------//
+	//-------------------- Cons/Des -----------------------------------------//
+					FragTrap(std::string name);
+					FragTrap(FragTrap const & src);
+					~FragTrap();
+	//-------------------- Operators ----------------------------------------//
+	FragTrap&		operator=(FragTrap const &instance);
 };
 
 #endif

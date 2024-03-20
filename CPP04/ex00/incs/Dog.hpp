@@ -13,29 +13,20 @@
 #ifndef DOG_HPP
 # define DOG_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
-#include "../incs/Animal.hpp"
+#include "base.hpp"
 
 class Dog : public Animal
 {
 	protected:
 	
 	public:
-	//-------------------- Member funcs -----------------------------------------//
-	//-------------------- Constructor/Destructor -------------------------------//
-	    Dog();
-	    Dog(Dog const & src);
+	//-------------------- Methods ------------------------------------------//
+	//-------------------- Set/get ------------------------------------------//
+	//-------------------- Cons/Des -----------------------------------------//
+		Dog();
+		Dog(Dog const & src);
 	    ~Dog();
-	//-------------------- Operators --------------------------------------------//
-	   // Dog& operator=(Dog const & instance);
+	//-------------------- Operators ----------------------------------------//
 	
 };
 

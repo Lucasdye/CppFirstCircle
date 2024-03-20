@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/Animal.hpp"
-#include "../incs/Animal.hpp"
-#include "../../../colors.hpp"
+#include "../incs/base.hpp"
 
-//-------------------- Member funcs -------------------------------------------//
+//-------------------- Methods ----------------------------------------------//
+
 void Animal::makeSound() const
 {
 	if (_type == "Dog")
@@ -25,13 +24,13 @@ void Animal::makeSound() const
 		std::cout << "	*Silence*" << std::endl;	
 }
 
-//-------------------- Set/Get ------------------------------------------------//
+//-------------------- Set/Get ----------------------------------------------//
 std::string	Animal::getType() const
 {
 	return (_type);
 }
 
-//-------------------- Constructor/Destructor ---------------------------------//
+//-------------------- Constructor/Destructor -------------------------------//
 Animal::Animal() : _type("Animal")
 {
 	std::cout << ITALIC << "Default constructor called for Animal" << END_C << std::endl;
@@ -52,9 +51,9 @@ Animal::~Animal()
 }
 
 //-------------------- Operators ----------------------------------------------//
-Animal&	Animal::operator=(Animal const & instance)
+Animal&	Animal::operator=(Animal const& instance)
 {
-	std::cout << ITALIC << "Assignment operator called for Animal" << END_C << std::endl;
+	std::cout << "Assignment operator called for Animal" << std::endl;
 	if (this != &instance)
 	{
 		_type = instance._type;

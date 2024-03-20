@@ -13,28 +13,22 @@
 #ifndef CAT_HPP
 # define CAT_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
-#include "../incs/Animal.hpp"
+# include "base.hpp"
 
 class Cat : public Animal
 {
 	protected:
 	
 	public:
-	//-------------------- Member funcs -----------------------------------------//
-	//-------------------- Constructor/Destructor -------------------------------//
+	//-------------------- Methods ------------------------------------------//
+	//-------------------- Set/get ------------------------------------------//
+	//-------------------- Cons/Des -----------------------------------------//
 	    Cat();
 	    Cat(Cat const & src);
 	    ~Cat();
-	//-------------------- Operators --------------------------------------------//
+	//-------------------- Operators ----------------------------------------//
+	
+	
 	    //Cat& operator=(Cat const & instance);
 
 

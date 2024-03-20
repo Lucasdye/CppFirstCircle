@@ -29,6 +29,9 @@ class ScavTrap : public ClapTrap
 						ScavTrap(std::string name);
 						ScavTrap(ScavTrap const & src);
 						~ScavTrap();
+
+	// -------------------- Operator -----------------------------------//
+	ScavTrap&			operator=(ScavTrap const &instance);
 };
 
 #endif

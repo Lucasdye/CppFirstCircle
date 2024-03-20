@@ -13,16 +13,7 @@
 #ifndef WRONGCAT_HPP
 # define WRONGCAT_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
-#include "WrongAnimal.hpp"
+#include "base.hpp"
 
 class WrongCat : public WrongAnimal
 {
@@ -30,13 +21,13 @@ class WrongCat : public WrongAnimal
 
 
 	public:
-
-		//-------------------- Member funcs ---------------------------------//
-		//-------------------- Set/get --------------------------------------//
-		//-------------------- Canonical form -------------------------------//
+	//-------------------- Methods ------------------------------------------//
+	//-------------------- Set/get ------------------------------------------//
+	//-------------------- Cons/Des -----------------------------------------//
     	WrongCat();
    		WrongCat(WrongCat const & src);
     	~WrongCat();
+	//-------------------- Operators ----------------------------------------//
 
 };
 

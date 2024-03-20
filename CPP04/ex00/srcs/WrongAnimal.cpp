@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/WrongAnimal.hpp"
-#include "../../../colors.hpp"
-
+#include "../incs/base.hpp"
 
 //-------------------- Member funcs -----------------------------------------//
 void WrongAnimal::makeSound() const
@@ -22,11 +20,13 @@ void WrongAnimal::makeSound() const
 	else
 		std::cout << "*Silence*" << std::endl;	
 }
+
 //-------------------- Set/Get ----------------------------------------------//
 std::string	WrongAnimal::getType() const
 {
 	return (_type);
 }
+
 //-------------------- Constructor/Destructor -------------------------------//
 WrongAnimal::WrongAnimal() : _type("Wrong animal")
 {

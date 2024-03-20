@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/Cat.hpp"
-#include "../../../colors.hpp"
+#include "../incs/base.hpp"
+
 
 //-------------------- Member funcs -------------------------------------------//
 //-------------------- Constructor/Destructor ---------------------------------//
@@ -34,17 +34,8 @@ Cat::~Cat()
 	std::cout << ITALIC << "Destructor called for Cat" << END_C << std::endl;
 	return ;
 }
-
 //-------------------- Operators ----------------------------------------------//
-// Cat&	Cat::operator=(Cat const &instance)
-// {
-// 	std::cout << ITALIC << "Assignment operator called for Cat" << std::endl;
-// 	if (this != &instance)
-// 	{
-// 		_type = instance._type;
-// 	}
-// 	return *this;
-// }
+
 
 
 

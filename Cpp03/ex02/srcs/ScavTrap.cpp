@@ -63,13 +63,15 @@ void	ScavTrap::takeDamage(unsigned int amount)
 
 void	ScavTrap::guardGate()
 {
-	std::cout << "Scavenger " << _name << " has activated guard gate ability" << std::endl;
-	std::cout << "Scavenger " << _name << " reduces taken damages by 50%" << std::endl;
-	_guardGate = true;
-	return ;
+	if (_guardGate == false)
+	{	
+		std::cout << "Scavenger " << _name << " has activated guard gate ability" << std::endl;
+		std::cout << "Scavenger " << _name << " reduces taken damages by 50%" << std::endl;
+		_guardGate = true;
+	}
 }
 
-//-------------------- Constructor/Destructor ---------------------------------//
+//-------------------- Constructor/Destructor -------------------------------//
 ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 {
 	std::cout << "Default constructor called for ScavTrap	" << _name << std::endl;
@@ -90,4 +92,16 @@ ScavTrap::~ScavTrap()
 {
 	std::cout << "Default destructor  called for ScavTrap	" << _name << std::endl;
 	return ;
+}
+//-------------------- Operators --------------------------------------------//
+
+ScavTrap&		ScavTrap::operator=(ScavTrap const &instance)//=> & referes to the reference
+{	
+	std::cout << "Assignment operator called for ScavTrap" << std::endl;
+	if (this != &instance)//& refers to the address of the reference
+	{
+		ClapTrap::operator=(instance);
+		_guardGate = instance._guardGate;
+	}
+	return (*this);
 }

@@ -12,42 +12,49 @@
 
 #include "../incs/base.hpp"
 
+bool	lastSurvivor(ClapTrap *player[])
+{
+	unsigned int countRemaningPlayers;
+
+	countRemaningPlayers = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		if (player[i]->getHitPoints() != 0)
+			countRemaningPlayers++;
+	}
+	if (countRemaningPlayers == 1)
+		return (true);
+	else
+		return (false);
+}
+
 int main(void) 
 {
-	ClapTrap	falco("Falco 🦅");
-	ScavTrap	lucas("Lucas 👱");
-	ScavTrap	fox("Fox 🦊");
-	ClapTrap	snake(ScavTrap("Snake 🥷 "));// <= une classe derivee peut
-										 	 // etre utilisee la ou un objet
-										 	 // de base est attendu (polymorphisme)
-	
-	// snake.setAttackDamage(-10);
-	// lucas.setAttackDamage(25);
+	ClapTrap		falco("Falco 🦅");
+	ScavTrap		lucas("Lucas 👱");
+	ScavTrap		fox("Fox 🦊");
+	ClapTrap		snake(ScavTrap("Snake 🥷 "));// <= une classe derivee peut
+	ClapTrap		link(FragTrap("Link 🧝"));   // etre utilisee la ou un objet								 	 					
+	ClapTrap		*player[5];		     		 // de base est attendu.(polymorphisme)
+	unsigned int	randomValueAttacker;		 // MAIS SLICING SI PAR COPIE !
+	unsigned int	randomValueTarget;
+
+	player[0] = &falco;
+	player[1] = &lucas;
+	player[2] = &fox;
+	player[3] = &snake;
+	player[4] = &link;
+
+	srand(static_cast<unsigned int>(time(0)));
 	std::cout << "<-_-^-_-^-_-^-_-^-_-^-_-^-_-^->\n" << std::endl;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 100 && !lastSurvivor(player); i++)
 	{
-		if ( i != 0 && i % 3 == 0)
-		{
-			std::cout << "⚡⚡⚡ Lucas comes out from nowhere to kick Snake's ass ⚡⚡⚡" << std::endl;
-			lucas.attack("Snake");
-			snake.takeDamage(lucas.getAttackPoints());
-		}
-		if (i == 4)
-			fox.guardGate();
-		// else
-		// {
-			fox.attack("Falco");
-			falco.takeDamage(fox.getAttackPoints());
-		//}
-		if (i % 2)
-			falco.beRepaired(50);
-		else
-		{
-			falco.attack("Fox");
-			fox.takeDamage(falco.getAttackPoints());
-		}
-		snake.attack("Fox");
-		fox.takeDamage(snake.getAttackPoints());
+		randomValueAttacker = rand() % 5;
+		usleep(100);
+		randomValueTarget = rand() % 5;
+		if (player[randomValueAttacker])
+		player[randomValueAttacker]->attack(player[randomValueTarget]->getName());
+		player[randomValueTarget]->takeDamage(player[randomValueAttacker]->getAttackPoints());
 		std::cout << "\n<-_-^-_-^-_-^-_-^-_-^-_-^-_-^->\n" << std::endl;
 	}
 	std::cout << "🌟🌟🌟🌟🌟🌟🌟🌟The winners are🌟🌟🌟🌟🌟🌟🌟🌟" <<std::endl;
@@ -59,6 +66,8 @@ int main(void)
 		std::cout << "\t\t" << fox.getName() << std::endl;
 	if (snake.getHitPoints())
 		std::cout << "\t\t" << snake.getName() << std::endl;
+	if (link.getHitPoints())
+		std::cout << "\t\t" << link.getName() << link.highFivesGuys() << std::endl;
 	
 	return 0;
 }

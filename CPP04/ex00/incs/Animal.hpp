@@ -13,15 +13,7 @@
 #ifndef ANIMAL_HPP
 # define ANIMAL_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
+# include "base.hpp"
 
 class Animal
 {
@@ -29,17 +21,16 @@ class Animal
 		std::string _type;
 
 	public:
-		//-------------------- Member funcs ---------------------------------//
-		void makeSound() const;
-		
-		//-------------------- Set/get --------------------------------------//
-		std::string getType() const;
-		
-		//-------------------- Canonical form -------------------------------//
-	    Animal();
-	    Animal(Animal const &src);
+	//-------------------- Methods ------------------------------------------//
+		void 		makeSound() const;
+	//-------------------- Set/get ------------------------------------------//
+		std::string	getType() const;
+	//-------------------- Cons/Des -----------------------------------------//
+	   				Animal();
+	    			Animal(Animal const &src);
+	    virtual 	~Animal();
+	//-------------------- Operators ----------------------------------------//
 	    Animal& operator=(Animal const & instance);
-	    virtual ~Animal();
 };
 
 #endif

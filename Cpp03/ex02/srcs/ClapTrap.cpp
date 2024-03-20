@@ -16,12 +16,12 @@
 void ClapTrap::attack(const std::string &target)
 {
 	if (_energyPoints == 0)
-		std::cout << _name << " has no energy left to attack ! 🪫" << std::endl;
+		std::cout << "Clapper " << _name << " has no energy left to attack ! 🪫" << std::endl;
 	else if (_hitPoints == 0)
-		std::cout << _name << " Can't attack, his dead ! 💀" << std::endl;
+		std::cout << "Clapper " << _name << " Can't attack, his dead ! 💀" << std::endl;
 	else
 	{	
-		std::cout << _name << " attacks " <<  target << ", causing "
+		std::cout << "Clapper " << _name << " attacks " <<  target << ", causing "
 		<< _attackDamage << " points of damage ! 🩸" << std::endl;
 		_energyPoints -= 1;
 	}

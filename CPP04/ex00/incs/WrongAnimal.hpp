@@ -13,15 +13,7 @@
 #ifndef WRONGANIMAL_HPP
 # define WRONGANIMAL_HPP
 
-#include <iostream>
-#include <sstream>
-#include <unistd.h>
-#include <string>
-#include <cstdlib>
-#include <iomanip>
-#include <fstream>
-#include <cmath>
-#include <string.h>
+# include "base.hpp"
 
 class WrongAnimal
 {
@@ -29,16 +21,16 @@ class WrongAnimal
 		std::string	_type;
 	
 	public:
-	
-		//-------------------- Member funcs -------------------------------------//
-		void makeSound() const;
-		//-------------------- Set/get ------------------------------------------//
-		std::string getType() const;
-		//-------------------- Canonical form -----------------------------------//
-	    WrongAnimal();
-	    WrongAnimal(WrongAnimal const & src);
+	//-------------------- Methods ------------------------------------------//
+		void 		makeSound() const;
+	//-------------------- Set/get ------------------------------------------//
+		std::string getType() 	const;
+	//-------------------- Cons/Des -----------------------------------------//
+	    			WrongAnimal();
+	    			WrongAnimal(WrongAnimal const & src);
+	    			~WrongAnimal();
+	//-------------------- Operators ----------------------------------------//
 	    WrongAnimal& operator=(WrongAnimal const & instance);
-	    ~WrongAnimal();
 };
 
 #endif

@@ -1,6 +1,6 @@
 NAME = prg
-CC = g++
-CFLAGS = -g -Wall -Wextra -Werror -std=c++98 
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98 
 OBJ_DIR = objs/
 
 SRC = srcs/main.cpp srcs/Animal.cpp srcs/Cat.cpp srcs/Dog.cpp srcs/WrongAnimal.cpp srcs/WrongCat.cpp
