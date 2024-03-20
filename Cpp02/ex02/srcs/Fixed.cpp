@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2027/02/20 10:15:58 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/02/29 12:40:22 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:05:46 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 //	-------------------- Statics var -------------------------------------//
 const int Fixed::_staticFractionalBits = 8;
+
 //	-------------------- Statics funcs surchargees	---------------------//
 Fixed Fixed::min(Fixed &a,Fixed &b)
 {
@@ -36,47 +37,104 @@ Fixed Fixed::max(const Fixed &a,const Fixed &b)
 }
 //	-------------------- Methods   -------------------------------------------//
 
-bool	Fixed::checkFixedPointOverflow(int a)	const
+// ----- Checkers
+bool	Fixed::checkIntFixedPointOverflow(const int a) const
 {
-	if (a > 16777215)
+	int maxCapStorInt = 4194303;
+
+	if (a > maxCapStorInt)
 	{	
 		std::cout << YELLOW << "You're using all bits for the integer part, at least 8 bits should be reserverd to the decimal part"
-		<< " please don't exceed the value 16.777.215" << END_C <<std::endl;
+		<< " please don't go over the value 16.777.215" << END_C <<std::endl;
+		std::cout << YELLOW << "_fixedPointValue as been set to maximum int value it can store (4194303)" << END_C << std::endl;
 		return (true);
 	}
 	else 
 		return (false);
 }
 
-int		Fixed::toInt(void)						const
+bool	Fixed::checkIntFixedPointUnderflow(const int a)	const
 {
-	return (roundf(_fixedPointValue >> _staticFractionalBits));
+	int minCapStorInt = -4194303;
+	
+	if (a < minCapStorInt)
+	{
+		std::cout << YELLOW << "You're using all bits for the integer part, at least 8 bits should be reserverd to the decimal part"
+		<< " please don't go below the value -16.777.215" << END_C <<std::endl;
+		std::cout << YELLOW << "_fixedPointValue as been set to maximum negative int value it can store (-4194303)" << END_C << std::endl; 
+		return (true);
+	}
+	else 
+		return (false);
 }
 
-float	Fixed::toFloat(void) 					const
+bool	Fixed::checkFloatFixedPointOverflow(const int a) const
 {
-	/*-----	Notes
+	float	maxCapStorFloat = 8388607;// max float value than can be stored in a 32-bit integer
+
+	if (a > maxCapStorFloat)
+	{	
+		std::cout << YELLOW << "Float is to big to be stored in the fixed point integer: int overflow" << std::endl 
+	 	<< "_fixedPointValue as been set to maximum float value it can store (268435455.875f)" << END_C << std::endl;
+		return (true);
+	}
+	else
+		return (false);
+}
+
+bool	Fixed::checkFloatFixedPointUnderflow(const int a) const
+{
+	float	minCapStorFloat = -8388607;//min float value than can be stored in a 32-bit integer
+
+	if (a < minCapStorFloat)
+	{	
+		std::cout << YELLOW << "Float has a to big negative value to be stored in the fixed point integer: int overflow" << std::endl 
+	 	<< "_fixedPointValue as been set to maximum negative float value it can store (-268435455.875f)" << END_C << std::endl;
+		return (true);
+	}
+	else
+		return (false);
+	
+}
+
+
+int		Fixed::toInt(void) const
+{
+	return (static_cast<int>(roundf(_fixedPointValue >> _staticFractionalBits)));
+}
+
+float	Fixed::toFloat(void) const
+{
+	/*	---------------------	Notes	---------------------
 		Le static_cast est plus spécifique et plus sûr que le cast C-style.
 		Il est utilisé pour les conversions de types qui nécessitent 
 		une nouvelle représentation binaire du type.
 	*/
-	return (static_cast<float>(_fixedPointValue) / (1 << _staticFractionalBits));
+	return (static_cast<float>(_fixedPointValue)  / ( 1 << _staticFractionalBits));
 }
+
+
 //	---------------------	Get/Set    --------------------------------------//
 
-int Fixed::getRawBits(void) const
+int		Fixed::getRawBits(void) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
 	return (_fixedPointValue);
 }
 
-void Fixed::setRawBits(int const raw)
+void 	Fixed::setRawBits(int const raw)
 {
-	_fixedPointValue = raw << _staticFractionalBits;
+	if (checkIntFixedPointOverflow(raw))
+		_fixedPointValue = 4194303;
+	else if (checkIntFixedPointUnderflow(raw))
+		_fixedPointValue = -4194303;
+	else 
+		_fixedPointValue = raw << _staticFractionalBits;
 	return ;
 }
 
 //	---------------------	Contructors/Destructor	-------------------------//
+
 Fixed::Fixed() : _fixedPointValue(0)
 {
 	std::cout << "Default constructor called for Fixed" << std::endl;
@@ -86,21 +144,31 @@ Fixed::Fixed() : _fixedPointValue(0)
 Fixed::Fixed(const float a): _fixedPointValue(0)
 {
 	std::cout << "Float constructor called" << std::endl;
-	if (roundf(a * (1 << _staticFractionalBits)) > INT_MAX)
-	{
-		std::cout << YELLOW << "Int overflow" << std::endl 
-		<< "Please use smaller values for a valid reprensation" << END_C << std::endl;
-	}
+
+	if (checkFloatFixedPointOverflow(a))
+		_fixedPointValue = INT_MAX;
+	else if (checkFloatFixedPointUnderflow(a))
+		_fixedPointValue = INT_MIN;
 	else
-		_fixedPointValue = roundf((a * (1 << _staticFractionalBits)));
+		_fixedPointValue = static_cast<int>((roundf((a * (1 << _staticFractionalBits)))));
 	return ;
 }
 
 Fixed::Fixed(const int a): _fixedPointValue(0)
 {
 	std::cout << "Int constructor called" << std::endl;
-	if (checkFixedPointOverflow(a))
+	if (checkIntFixedPointOverflow(a))
+	{
+		std::cout << "The max value the fixed point integer can store has been set => 4194303" << std::endl;
+		_fixedPointValue = 4194303 << _staticFractionalBits;
 		return ;
+	}
+	else if (checkIntFixedPointUnderflow(a))
+	{
+		std::cout << "The max minimum value the fixed point integer can store has been set => -4194303" << std::endl;
+		_fixedPointValue = 4194303 << _staticFractionalBits;
+		return ;
+	}
 	else
 		_fixedPointValue = a << _staticFractionalBits;
 	return ;
@@ -117,7 +185,6 @@ Fixed::~Fixed()
 	std::cout << "Destructor called for Fixed" << std::endl;
 	return ;
 }
-
 //	---------------------	Operators    ------------------------------------//
 //----- Equality
 Fixed&	Fixed::operator=(Fixed const &instance)
@@ -180,28 +247,37 @@ bool Fixed::operator!=(Fixed const &instance)
 //----- Arithmetics
 Fixed Fixed::operator+(Fixed const &instance)
 {
-	return (this->_fixedPointValue + instance._fixedPointValue);
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
+	return (Fixed(this->_fixedPointValue + instance._fixedPointValue));
 }
 
 Fixed Fixed::operator-(Fixed const &instance)
 {
-	return (this->_fixedPointValue - instance._fixedPointValue);
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
+	return (Fixed(this->_fixedPointValue - instance._fixedPointValue));
 }
 
 Fixed Fixed::operator*(Fixed const &instance)
 {
-	return (this->toFloat() * instance.toFloat());
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
+	return (Fixed(this->_fixedPointValue * instance._fixedPointValue));
 }
 
 Fixed Fixed::operator/(Fixed const &instance)
 {
-	return (this->_fixedPointValue / instance._fixedPointValue);
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
+	return (Fixed(this->_fixedPointValue / instance._fixedPointValue));
 }
 
 //----- Pre-incremenation
 Fixed& Fixed::operator++() 
 {
-    // Augmente la valeur de l'unité ε
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
     this->_fixedPointValue += 1;
     return *this;
 }
@@ -209,6 +285,8 @@ Fixed& Fixed::operator++()
 //----- Post-incremenation
 Fixed Fixed::operator++(int) 
 {
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
     Fixed temp = *this;	// Copie de l'objet actuel
     ++(*this);			// Utilise la pré-incrémentation définie au-dessus
     return temp;		// Retourne la copie non modifiée
@@ -217,6 +295,8 @@ Fixed Fixed::operator++(int)
 //----- Pre-decrementation
 Fixed& Fixed::operator--() 
 {
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
     // Diminue la valeur de l'unité ε
     this->_fixedPointValue -= 1;
     return *this;
@@ -225,6 +305,8 @@ Fixed& Fixed::operator--()
 //----- Post-decrementation
 Fixed Fixed::operator--(int) 
 {
+	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
+	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
     Fixed temp = *this;	// Copie de l'objet actuel
     --(*this);			// Utilise la pré-décrémentation définie au-dessus
     return temp;		// Retourne la copie non modifiée

@@ -6,13 +6,11 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2027/02/20 10:15:58 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/02/29 14:26:08 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:06:34 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../incs/Fixed.hpp"
-# include "../incs/funcOperator.hpp"
-# include <iostream>
+# include "../incs/base.hpp"
 
 int main( void ) 
 {

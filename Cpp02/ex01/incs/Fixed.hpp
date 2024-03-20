@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2027/02/20 10:15:58 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/02/29 10:31:48 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:24:27 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ class Fixed
 	//-------------------- Methods ------------------------------------------//
 		float	toFloat(void)	const;
 		int		toInt(void)		const;
-		bool	checkFixedPointOverflow(int a)	const;
+		bool	checkIntFixedPointOverflow(const int a)		const;
+		bool	checkIntFixedPointUnderflow(const int a)	const;
+		bool	checkFloatFixedPointOverflow(const int a)	const;
+		bool	checkFloatFixedPointUnderflow(const int a)	const;
 	//-------------------- Set/get ------------------------------------------//
 		int		getRawBits(void) const;// Le suffix const du proto indique que la méthode ne modifiera pas l'état de l'objet sur lequel elle est appelée.
 		void	setRawBits(int const raw);

@@ -21,10 +21,11 @@
 # include <fstream>
 # include <cmath>
 # include <cstdlib>
-# include <limits>
+# include <limits.h>
 
 //-------------------- Classes  ---------------------------------------------//
 # include "Fixed.hpp"
+# include "funcOperator.hpp"
 //-------------------- Aesthetics -------------------------------------------//
 # include "colors.hpp"
 //-------------------- My funcs proto ---------------------------------------//
