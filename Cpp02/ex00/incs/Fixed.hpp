@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2027/02/20 10:15:58 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/20 11:25:47 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:48:49 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ class Fixed
 
 	public:
 	//-------------------- Methods ------------------------------------------//
-		bool	checkFixedPointOverflow(const int a)	const;
-		bool	checkFixedPointUnderflow(const int a)	const;
 	//-------------------- Set/get ------------------------------------------//
     	int		getRawBits(void)				const;
 		void	setRawBits(int const raw);

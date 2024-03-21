@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 14:45:03 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/01 17:07:17 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:04:33 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void ClapTrap::beRepaired(unsigned int amount)
 //-------------------- Set/get ----------------------------------------------//
 unsigned int	ClapTrap::getAttackPoints()
 {
-	if (_hitPoints != 0)
+	if (_hitPoints != 0 && _energyPoints != 0)
 		return (_attackDamage);
 	return (false);
 }
@@ -124,7 +124,7 @@ void	ClapTrap::setAttackDamage(int value)
 {
 	long long checkUIntOverflow;
 	
-	checkUIntOverflow =  + static_cast<long long>(_attackDamage) + static_cast<long long>(value);
+	checkUIntOverflow = static_cast<long long>(_attackDamage) + static_cast<long long>(value);
 	if (checkUIntOverflow > UINT_MAX)
 	{	
 		std::cout << YELLOW <<

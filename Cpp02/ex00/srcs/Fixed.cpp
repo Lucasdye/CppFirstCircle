@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2027/02/20 10:15:58 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/20 11:29:21 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/21 14:49:07 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,6 @@
 const int Fixed::_staticFractionalBits = 8;
 
 //-------------------- Methods ----------------------------------------------//
-bool	Fixed::checkFixedPointOverflow(const int a)	const
-{
-	if (a > 16777215)
-	{	
-		std::cout << YELLOW << "You're using all bits for the integer part, at least 8 bits should be reserverd to the decimal part"
-		<< " please don't exceed the value 16.777.215" << END_C <<std::endl;
-		return (true);
-	}
-	else 
-		return (false);
-}
-
-bool	Fixed::checkFixedPointUnderflow(const int a)	const
-{
-	if (a < -16777215)
-	{
-		std::cout << YELLOW << "You're using all bits for the integer part, at least 8 bits should be reserverd to the decimal part"
-		<< " please don't go below the value -16.777.215" << END_C <<std::endl;
-		return (true);
-	}
-	else 
-		return (false);
-}
-
 //-------------------- Set/Get ----------------------------------------------//
 int Fixed::getRawBits(void) const
 {
@@ -48,18 +24,7 @@ int Fixed::getRawBits(void) const
 
 void Fixed::setRawBits(int const raw)
 {
-	if (checkFixedPointOverflow(raw))
-	{	
-		std::cout << "The value 16.777.215 has been set" << std::endl;
-		_fixedPointValue = 16777215;
-	}
-	else if (checkFixedPointUnderflow(raw))
-	{
-		std::cout << "The value 16.777.215 has been set" << std::endl;
-		_fixedPointValue = -16777215;
-	}
-	else 
-	_fixedPointValue = raw << _staticFractionalBits;
+	_fixedPointValue = raw;
 	return ;
 }
 

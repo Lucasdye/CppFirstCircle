@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 14:45:03 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/01 17:08:57 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:07:10 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,8 @@ int main(void)
 		}
 		if (i == 4)
 			fox.guardGate();
-		// else
-		// {
-			fox.attack("Falco");
-			falco.takeDamage(fox.getAttackPoints());
-		//}
+		fox.attack("Falco");
+		falco.takeDamage(fox.getAttackPoints());
 		if (i % 2)
 			falco.beRepaired(50);
 		else

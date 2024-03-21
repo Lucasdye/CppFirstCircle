@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 14:45:03 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/01 11:32:55 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:59:22 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@ class ClapTrap
 		unsigned int	_attackDamage;
 
 	public:
-// -------------------- Methods		 ----------------------------------------//
-		void attack(const std::string& target);
-		void takeDamage(unsigned int amount);
-		void beRepaired(unsigned int amount);
-// -------------------- Cons/Des --------------------------------------------//
+	// -------------------- Methods		 ----------------------------------------//
+		void 			attack(const std::string& target);
+		void 			takeDamage(unsigned int amount);
+		void 			beRepaired(unsigned int amount);
+	// -------------------- Set/get -------------------------------------------//
+		unsigned int	getAttackPoints();
+		unsigned int	getHitPoints();
+		void			setAttackDamage(int value);
+	// -------------------- Cons/Des --------------------------------------------//
     	ClapTrap(std::string name);
     	ClapTrap(ClapTrap const & src);
     	~ClapTrap();
-// -------------------- Operator --------------------------------------------//
+	// -------------------- Operator --------------------------------------------//
     	ClapTrap& operator=(ClapTrap const & instance);
 
 };

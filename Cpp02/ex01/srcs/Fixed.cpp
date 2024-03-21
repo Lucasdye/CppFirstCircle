@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2027/02/20 10:15:58 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/20 18:16:07 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:56:32 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ const int	Fixed::_staticFractionalBits = 8;
 
 bool	Fixed::checkIntFixedPointOverflow(const int a) const
 {
-	int maxCapStorInt = 4194303;
+	int maxCapStorInt = 8388607;
 
 	if (a > maxCapStorInt)
 	{	
 		std::cout << YELLOW << "You're using all bits for the integer part, at least 8 bits should be reserverd to the decimal part"
-		<< " please don't go over the value 16.777.215" << END_C <<std::endl;
-		std::cout << YELLOW << "_fixedPointValue as been set to maximum int value it can store (4194303)" << END_C << std::endl;
+		<< " please don't go over the value 8388607" << END_C <<std::endl;
+		std::cout << YELLOW << "_fixedPointValue as been set to maximum int value it can store (8388607)" << END_C << std::endl;
 		return (true);
 	}
 	else 
@@ -35,13 +35,13 @@ bool	Fixed::checkIntFixedPointOverflow(const int a) const
 
 bool	Fixed::checkIntFixedPointUnderflow(const int a)	const
 {
-	int minCapStorInt = -4194303;
+	int minCapStorInt = -8388607;
 	
 	if (a < minCapStorInt)
 	{
 		std::cout << YELLOW << "You're using all bits for the integer part, at least 8 bits should be reserverd to the decimal part"
-		<< " please don't go below the value -16.777.215" << END_C <<std::endl;
-		std::cout << YELLOW << "_fixedPointValue as been set to maximum negative int value it can store (-4194303)" << END_C << std::endl; 
+		<< " please don't go below the value -8388607" << END_C <<std::endl;
+		std::cout << YELLOW << "_fixedPointValue as been set to maximum negative int value it can store (-8388607)" << END_C << std::endl; 
 		return (true);
 	}
 	else 
@@ -50,12 +50,12 @@ bool	Fixed::checkIntFixedPointUnderflow(const int a)	const
 
 bool	Fixed::checkFloatFixedPointOverflow(const int a) const
 {
-	float	maxCapStorFloat = 8388607;// max float value than can be stored in a 32-bit integer
+	float	maxCapStorFloat = 8388608;// max float value than can be stored in a 32-bit integer
 
 	if (a > maxCapStorFloat)
 	{	
 		std::cout << YELLOW << "Float is to big to be stored in the fixed point integer: int overflow" << std::endl 
-	 	<< "_fixedPointValue as been set to maximum float value it can store (268435455.875f)" << END_C << std::endl;
+	 	<< "_fixedPointValue as been set to maximum float value it can store (8388608)" << END_C << std::endl;
 		return (true);
 	}
 	else
@@ -64,12 +64,12 @@ bool	Fixed::checkFloatFixedPointOverflow(const int a) const
 
 bool	Fixed::checkFloatFixedPointUnderflow(const int a) const
 {
-	float	minCapStorFloat = -8388607;//min float value than can be stored in a 32-bit integer
+	float	minCapStorFloat = -8388608;//min float value than can be stored in a 32-bit integer
 
 	if (a < minCapStorFloat)
 	{	
-		std::cout << YELLOW << "Float has a to big negative value to be stored in the fixed point integer: int overflow" << std::endl 
-	 	<< "_fixedPointValue as been set to maximum negative float value it can store (-268435455.875f)" << END_C << std::endl;
+		std::cout << YELLOW << "Float has a to big negative value to be stored in the fixed point integer: int underflow" << std::endl 
+	 	<< "_fixedPointValue as been set to maximum negative float value it can store (-8388608)" << END_C << std::endl;
 		return (true);
 	}
 	else
@@ -94,7 +94,6 @@ float	Fixed::toFloat(void) const
 
 
 //	---------------------	Get/Set    ---------------------
-
 int		Fixed::getRawBits(void) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
@@ -103,15 +102,8 @@ int		Fixed::getRawBits(void) const
 
 void 	Fixed::setRawBits(int const raw)
 {
-	if (checkIntFixedPointOverflow(raw))
-		_fixedPointValue = 4194303;
-	else if (checkIntFixedPointUnderflow(raw))
-		_fixedPointValue = -4194303;
-	else 
-		_fixedPointValue = raw << _staticFractionalBits;
-	return ;
+	_fixedPointValue = raw;
 }
-
 //	---------------------	Contructors/Destructor    ---------------------
 
 Fixed::Fixed() : _fixedPointValue(0)
@@ -139,13 +131,13 @@ Fixed::Fixed(const int a): _fixedPointValue(0)
 	if (checkIntFixedPointOverflow(a))
 	{
 		std::cout << "The max value the fixed point integer can store has been set => 4194303" << std::endl;
-		_fixedPointValue = 4194303 << _staticFractionalBits;
+		_fixedPointValue =  8388607 << _staticFractionalBits;
 		return ;
 	}
 	else if (checkIntFixedPointUnderflow(a))
 	{
 		std::cout << "The max minimum value the fixed point integer can store has been set => -4194303" << std::endl;
-		_fixedPointValue = 4194303 << _staticFractionalBits;
+		_fixedPointValue = (-1) * (8388607 << _staticFractionalBits);
 		return ;
 	}
 	else
