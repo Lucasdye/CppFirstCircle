@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 14:45:03 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/21 17:04:33 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:28:28 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,22 @@ void ClapTrap::takeDamage(unsigned int amount)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	long long unsigned checkUIntOverflow;
-
-	checkUIntOverflow =  + static_cast<long long unsigned>(_hitPoints)
+	unsigned long long checkUIntOverflow;
+	
+	checkUIntOverflow = static_cast<long long unsigned>(_hitPoints) 
 	+ static_cast<long long unsigned>(amount);
-	if (checkUIntOverflow > UINT_MAX)
-	{
-		std::cout << YELLOW <<
-		"Unsigned int overflow, setter setAttackDamage()ignored" << 
-		END_C << std::endl;
-	}
-	else if (_energyPoints != 0)
+	if (_energyPoints != 0)
 	{	
-		_hitPoints += amount;
-		_energyPoints -= 1;
-		std::cout << _name << " has +" << amount << " hit points 💗" << std::endl;
+		if (_hitPoints == UINT_MAX)
+			std::cout << _name << " has max hit points 🩷 !" << std::endl;
+		else if (checkUIntOverflow > UINT_MAX)
+			std::cout << YELLOW << "Overflowing "<< _name << "'s hit points !" << END_C << std::endl;
+		else
+		{	
+			_hitPoints += amount;
+			_energyPoints -= 1;
+			std::cout << _name << " has +" << amount << " hit points 💗" << std::endl;
+		}
 	}
 	else if (_energyPoints == 0)
 		std::cout << _name << " has no energy point left to regenerate itself !" << std::endl;
