@@ -97,7 +97,6 @@ bool	Fixed::checkFloatFixedPointUnderflow(const int a) const
 	
 }
 
-
 int		Fixed::toInt(void) const
 {
 	return (static_cast<int>(roundf(_fixedPointValue >> _staticFractionalBits)));
@@ -112,7 +111,6 @@ float	Fixed::toFloat(void) const
 	*/
 	return (static_cast<float>(_fixedPointValue)  / ( 1 << _staticFractionalBits));
 }
-
 
 //	---------------------	Get/Set    --------------------------------------//
 
@@ -185,6 +183,7 @@ Fixed::~Fixed()
 	std::cout << "Destructor called for Fixed" << std::endl;
 	return ;
 }
+
 //	---------------------	Operators    ------------------------------------//
 //----- Equality
 Fixed&	Fixed::operator=(Fixed const &instance)
@@ -247,69 +246,102 @@ bool Fixed::operator!=(Fixed const &instance)
 //----- Arithmetics
 Fixed Fixed::operator+(Fixed const &instance)
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
-	return (Fixed(this->_fixedPointValue + instance._fixedPointValue));
+	// Fixed point atithemtic stored in a float. 
+	float result = this->_fixedPointValue + instance._fixedPointValue;
+    // Float arithmetic. Rescaling back result to / 2^8.
+	return (Fixed(result / 256));
 }
 
 Fixed Fixed::operator-(Fixed const &instance)
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
-	return (Fixed(this->_fixedPointValue - instance._fixedPointValue));
+	float result = this->_fixedPointValue - instance._fixedPointValue;
+	return (Fixed(result / 256));
 }
 
 Fixed Fixed::operator*(Fixed const &instance)
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
-	return (Fixed(this->_fixedPointValue * instance._fixedPointValue));
+	// Fixed point atithemtic stored in a float. 
+    float result = this->_fixedPointValue * instance._fixedPointValue; // Safer against overflow
+    // Float arithmetic. Rescaling back result to / 2^2 * 8.
+	return Fixed(result / 65536);
 }
 
 Fixed Fixed::operator/(Fixed const &instance)
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
-	return (Fixed(this->_fixedPointValue / instance._fixedPointValue));
+	// Float arithmetic seems necessary for division. (could it be avoid ?)
+    float result = toFloat() / instance.toFloat();
+    return Fixed(result);
 }
 
 //----- Pre-incremenation
 Fixed& Fixed::operator++() 
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
-    this->_fixedPointValue += 1;
+	long long llcheck = _fixedPointValue + 1;
+
+	if (llcheck > INT_MAX)
+	{
+		std::cout << YELLOW << "Pre-incrementation is causing int overflow" 
+		<< END_C << std::endl;
+		std::cout << BLUE << "Setting Fixed point to INT_MAX" << END_C << std::endl;
+		_fixedPointValue = INT_MAX;
+	}
+	else
+    	_fixedPointValue += 1;
     return *this;
 }
 
 //----- Post-incremenation
 Fixed Fixed::operator++(int) 
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
-    Fixed temp = *this;	// Copie de l'objet actuel
-    ++(*this);			// Utilise la pré-incrémentation définie au-dessus
-    return temp;		// Retourne la copie non modifiée
+	long long llcheck = _fixedPointValue + 1;
+	
+	Fixed temp = *this;	// Copy object before change
+	if (llcheck > INT_MAX)
+	{
+		std::cout << YELLOW << "Pre-incrementation is causing int overflow" 
+		<< END_C << std::endl;
+		std::cout << BLUE << "Setting Fixed point to INT_MAX" << END_C << std::endl;
+		_fixedPointValue = INT_MAX;
+	}
+	else
+    	_fixedPointValue += 1;	
+	return temp;				
 }
 
 //----- Pre-decrementation
 Fixed& Fixed::operator--() 
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
     // Diminue la valeur de l'unité ε
-    this->_fixedPointValue -= 1;
+	long long llcheck = _fixedPointValue - 1;
+
+	if (llcheck < INT_MIN)
+	{
+		std::cout << YELLOW << "Pre-incrementation is causing int overflow" 
+		<< END_C << std::endl;
+		std::cout << BLUE << "Setting Fixed point to INT_MAX" << END_C << std::endl;
+		_fixedPointValue = INT_MIN;
+	}
+	else
+    	this->_fixedPointValue -= 1;
     return *this;
 }
 
 //----- Post-decrementation
 Fixed Fixed::operator--(int) 
 {
-	// Le check devient trop sophistiqué, ne sachant pas si le résultat final est un entier ou non
-	// Le constructeur approprié sera appelé et l'overflow ou underflow géré implicitement
-    Fixed temp = *this;	// Copie de l'objet actuel
-    --(*this);			// Utilise la pré-décrémentation définie au-dessus
-    return temp;		// Retourne la copie non modifiée
+	long long llcheck = _fixedPointValue - 1;
+	
+	Fixed temp = *this;	// Copy object before change
+	if (llcheck < INT_MIN)
+	{
+		std::cout << YELLOW << "Pre-incrementation is causing int overflow" 
+		<< END_C << std::endl;
+		std::cout << BLUE << "Setting Fixed point to INT_MIN" << END_C << std::endl;
+		_fixedPointValue = INT_MIN;
+	}
+	else
+    	_fixedPointValue -= 1;	
+	return temp;
 }
 
 
