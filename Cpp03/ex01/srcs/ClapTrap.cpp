@@ -13,7 +13,7 @@
 #include "../incs/base.hpp"
 
 //-------------------- Methods ----------------------------------------------//
-void ClapTrap::attack(const std::string &target)
+void ClapTrap::attack(const std::string &target)// OK
 {
 	if (_energyPoints == 0)
 		std::cout << _name << " has no energy left to attack ! 🪫" << std::endl;
@@ -21,55 +21,55 @@ void ClapTrap::attack(const std::string &target)
 		std::cout << _name << " Can't attack, his dead ! 💀" << std::endl;
 	else
 	{	
-		std::cout << _name << " attacks " <<  target << ", causing "
-		<< _attackDamage << " points of damage ! 🩸" << std::endl;
+		std::cout << _name << " attacks " <<  target << ", causing " << _attackDamage << " points of damage ! 🩸" << std::endl;
 		_energyPoints -= 1;
 	}
 	return ;
 }
 
-void ClapTrap::takeDamage(unsigned int amount)
+void ClapTrap::takeDamage(unsigned int amount)//OK
 {
 	long long diff;
 
 	diff = static_cast<long long>(_hitPoints) - static_cast<long long>(amount);
-	//std::cout << "diff is : " << diff << std::endl;
-	if (diff <= 0)
-	{	
-		if (_hitPoints != 0)
-		{	
-			std::cout << _name << " dies from this attack ! 🪦" << std::endl;
-			_hitPoints = 0;
+	if (_hitPoints != 0)
+	{
+		if (diff <= 0)
+		{
+				std::cout << _name << " dies from this attack ! 🪦" << std::endl;
+				_hitPoints = 0;
 		}
-		else
+		else 
 		{	
-			std::cout << _name << " Can't take damages, his already dead ! 💀" 
-			<< std::endl;
+			_hitPoints = _hitPoints - amount;
+			std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
 		}
 	}
-	else
-	{
-		_hitPoints = _hitPoints - amount;
-		std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡"
+	else if (_hitPoints == 0)
+	{	
+		std::cout << _name << " Can't take damages, his already dead ! 💀" 
 		<< std::endl;
 	}
 	return ;
 }
 
-void ClapTrap::beRepaired(unsigned int amount)
+void ClapTrap::beRepaired(unsigned int amount)//OK
 {
 	unsigned long long checkUIntOverflow;
-	
-	checkUIntOverflow = static_cast<long long unsigned>(_hitPoints) 
-	+ static_cast<long long unsigned>(amount);
+
+	checkUIntOverflow = static_cast<long long unsigned>(_hitPoints) + static_cast<long long unsigned>(amount);
 	if (_energyPoints != 0)
-	{	
+	{
 		if (_hitPoints == UINT_MAX)
-			std::cout << _name << " has max hit points 🩷 !" << std::endl;
+			std::cout << _name << " Already has max hit points 💗 !" << std::endl;
 		else if (checkUIntOverflow > UINT_MAX)
-			std::cout << YELLOW << "Overflowing "<< _name << "'s hit points !" << END_C << std::endl;
-		else
 		{	
+			std::cerr << YELLOW << "Overflowing "<< _name << "'s hit points !" << END_C << std::endl;
+			_hitPoints == UINT_MAX;
+			std::cout << _name << " Has now max hit points 💗 !" << std::endl;
+		}
+		else
+		{
 			_hitPoints += amount;
 			_energyPoints -= 1;
 			std::cout << _name << " has +" << amount << " hit points 💗" << std::endl;
@@ -80,63 +80,38 @@ void ClapTrap::beRepaired(unsigned int amount)
 	return ;
 }
 
+// -------------------- Set/get ---------------------------------------------//
 
-//-------------------- Set/get ----------------------------------------------//
-unsigned int	ClapTrap::getAttackPoints()
+unsigned int	ClapTrap::getAttackPoints()//OK
 {
 	if (_hitPoints != 0 && _energyPoints != 0)
 		return (_attackDamage);
 	return (false);
 }
 
-unsigned int	ClapTrap::getHitPoints()
+unsigned int	ClapTrap::getHitPoints()//OK
 {
 	return(_hitPoints);
 }
 
-std::string		ClapTrap::getName()
-{
-	return(_name);
-}
-
-void	ClapTrap::setEnergyPoints(int value)
-{
-	long long checkUIntOverUnderflow;
-	
-	checkUIntOverUnderflow = static_cast<long long>( _attackDamage) + static_cast<long long>(value);
-	if (checkUIntOverUnderflow > UINT_MAX)
-	{	
-		std::cout << YELLOW <<
-		"Unsigned int overflow, setter setAttackDamage()ignored" << 
-		END_C << std::endl;
-	}
-	else if (checkUIntOverUnderflow < 0)
-	{
-		std::cout << YELLOW <<
-		"Unsigned int underflow, setter setAttackDamage()ignored" << 
-		END_C << std::endl;
-	}
-	else
-		_energyPoints += value;
-	return ;
-}
-
-void	ClapTrap::setAttackDamage(int value)
+void			ClapTrap::setAttackDamage(int value)
 {
 	long long checkUIntOverflow;
 	
 	checkUIntOverflow = static_cast<long long>(_attackDamage) + static_cast<long long>(value);
 	if (checkUIntOverflow > UINT_MAX)
 	{	
-		std::cout << YELLOW <<
-		"Unsigned int overflow, setter setAttackDamage()ignored" << 
+		std::cerr << YELLOW <<
+		"Overflowing _attackDamage of " << _name << " attribut set to its maximum" << 
 		END_C << std::endl;
+		_attackDamage = UINT_MAX;
 	}
 	else if (checkUIntOverflow < 0)
 	{
-		std::cout << YELLOW <<
-		"Unsigned int underflow, setter setAttackDamage()ignored" << 
+		std::cerr << YELLOW <<
+		"Underflowing _attackDamage of " << _name << "  attribut set to its minimum" << 
 		END_C << std::endl;
+		_attackDamage = 0;
 	}
 	else
 		_attackDamage += value;

@@ -13,7 +13,7 @@
 #include "../incs/base.hpp"
 
 // -------------------- Methods ---------------------------------------------//
-void 	ScavTrap::attack(const std::string &target)
+void 	ScavTrap::attack(const std::string &target)// OK
 {
 	if (_energyPoints == 0)
 		std::cout << _name << " has no energy left to attack ! 🪫" << std::endl;
@@ -28,40 +28,39 @@ void 	ScavTrap::attack(const std::string &target)
 	return ;
 }
 
-void	ScavTrap::takeDamage(unsigned int amount)
+void ScavTrap::takeDamage(unsigned int amount)//OK
 {
 	long long diff;
 
-	if (_guardGate == false)
-		diff = static_cast<long long>(_hitPoints) - static_cast<long long>(amount);
-	else
-		diff = static_cast<long long>(_hitPoints) - static_cast<long long>(roundf(static_cast<float>(amount) / 2));
-	if (diff <= 0)
-	{	
-		if (_hitPoints != 0)
-		{	
-			std::cout << _name << " dies from this attack ! 🪦" << std::endl;
-			_hitPoints = 0;
-		}
-		else
-			std::cout << _name << " Can't take damages, his already dead ! 💀" << std::endl;
+	if (_guardGate == true)
+	{
+		std::cout << _name << " has reduced inflicted damage by half 🛡️" << std::endl;
+		diff = static_cast<long long>(_hitPoints) - (amount / 2);
 	}
 	else
+		diff = static_cast<long long>(_hitPoints) - amount;
+	if (_hitPoints != 0)
 	{
-		if (_guardGate == false)
-			_hitPoints -= amount;
-		else
-		{	
-			_hitPoints -= static_cast<unsigned int>(roundf(static_cast<float>(amount) / 2));
-			std::cout << _name << " has reduced inflicted damage by half 🛡️" << std::endl;
-
+		if (diff <= 0)
+		{
+				std::cout << _name << " dies from this attack ! 🪦" << std::endl;
+				_hitPoints = 0;
 		}
-		std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
+		else 
+		{	
+			_hitPoints = _hitPoints - amount;
+			std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
+		}
+	}
+	else if (_hitPoints == 0)
+	{	
+		std::cout << _name << " Can't take damages, his already dead ! 💀" 
+		<< std::endl;
 	}
 	return ;
 }
 
-void	ScavTrap::guardGate()
+void	ScavTrap::guardGate()//OK
 {
 	if (_guardGate == false)
 	{	
@@ -76,20 +75,21 @@ void	ScavTrap::guardGate()
 ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 {
 	std::cout << "Default constructor called for ScavTrap	" << _name << std::endl;
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamage = 20;
-	_guardGate = false;
+	_hitPoints		= 100;
+	_energyPoints	= 50;
+	_attackDamage	= 20;
+	_guardGate		= false;
 	return ;
 }
 
-ScavTrap::ScavTrap(ScavTrap const &src): ClapTrap(src)
+ScavTrap::ScavTrap(ScavTrap const &src): ClapTrap(src)// TO DO
 { 
 	std::cout << "Copy constructor called for ScavTrap		" << _name << std::endl;
+	_guardGate = src._guardGate;
 	return ;
 }
 
-ScavTrap::~ScavTrap()
+ScavTrap::~ScavTrap()// TO DO
 {
 	std::cout << "Default destructor  called for ScavTrap	" << _name << std::endl;
 	return ;
@@ -104,6 +104,7 @@ ScavTrap&		ScavTrap::operator=(ScavTrap const &instance)//=> & referes to the re
 	{
 		ClapTrap::operator=(instance);
 		_guardGate = instance._guardGate;
+
 	}
 	return (*this);
 }
