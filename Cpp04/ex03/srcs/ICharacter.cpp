@@ -14,6 +14,8 @@
 
 AMateria* ICharacter::_dropped[50] = {nullptr};
 //-------------------- Member funcs -----------------------------------------//
+
+
 //-------------------- Set/Get ----------------------------------------------//
 	//----- Setters
 void	ICharacter::setName(std::string name)

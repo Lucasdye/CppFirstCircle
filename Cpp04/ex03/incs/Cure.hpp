@@ -20,19 +20,18 @@ class Cure : public AMateria
 	private:
 	
 	public:
-		//-------------------- Member funcs -------------------------------------------//
-		Cure*	clone() const;
-	    void 	use(ICharacter &target) override;
+		//-------------------- Member funcs ---------------------------------//
+		Cure	*clone() const override;
+	    void 		use(ICharacter &target) override;
 	
 		//-------------------- Cons/Des -------------------------------------//
-	    Cure();
-	    Cure(std::string type);
-	    Cure(Cure const &src);
-	    Cure& operator=(Cure const & instance);
-	    ~Cure();
-		//-------------------- Set/get ------------------------------------------------//
-		
-		//-------------------- Operators -----------------------------------------//
+	    			Cure();
+	    			Cure(std::string type);
+	    			Cure(Cure const &src);
+	    			~Cure();
+		//-------------------- Set/get --------------------------------------//
+		//-------------------- Operators ------------------------------------//
+	    Cure& 		operator=(Cure const & instance);
 	};
 
 #endif

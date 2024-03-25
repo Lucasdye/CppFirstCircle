@@ -26,6 +26,7 @@
 //-------------------- Classes  ---------------------------------------------//
 # include "Cure.hpp"
 # include "ICharacter.hpp"
+# include "Character.hpp"
 # include "AMateria.hpp"
 # include "Cure.hpp"
 # include "Ice.hpp"
@@ -35,6 +36,7 @@
 //-------------------- Aesthetics -------------------------------------------//
 # include "colors.hpp"
 //-------------------- My funcs proto ---------------------------------------//
+bool	idxParsing(unsigned int max, int idx);
 bool	checkIntOverflow(std::string &line);
 bool	strIsNumeric(std::string str);
 void 	drawSpaces(int nb);

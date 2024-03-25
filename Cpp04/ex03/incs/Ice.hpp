@@ -21,16 +21,16 @@ class Ice : public AMateria
 	
 	public:
 		//-------------------- Member funcs -------------------------------------//
-		Ice* clone() const;
-		void use(ICharacter &target) override;
+		Ice*		clone() const override;
+		void 		use(ICharacter&	target) override;
 		//-------------------- Set/get ------------------------------------------//
 		//-------------------- Canonical form -----------------------------------//
-	    Ice();
-		Ice(std::string type);
-	    Ice(Ice const &src);
-	    Ice& operator=(Ice const & instance);
-	    ~Ice();
+	   				Ice();
+					Ice(std::string type);
+	   				Ice(Ice const &src);
+	   				~Ice();
 		//-------------------- Operators -----------------------------------------//
+	    Ice& 		operator=(Ice const & instance);
 };
 
 #endif

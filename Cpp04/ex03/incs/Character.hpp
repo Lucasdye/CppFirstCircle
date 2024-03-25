@@ -31,10 +31,10 @@ class Character : public ICharacter
 			/****** In Abstract ******/
 	//-------------------- Cons/Des ------------------------------------------//
     Character(std::string name);
-   // Character(Character const &src);
-   // ~Character();
+   	Character(Character const &src);
+  	~Character();
 	//-------------------- Operators ----------------------------------------//
-				/****** In Abstract ******/
+	ICharacter& operator=(ICharacter const &instance);
 };
 
 #endif

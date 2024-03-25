@@ -20,7 +20,7 @@ class ICharacter
 	protected:
 		//-------------------- Static ---------------------------------------//
 		static			AMateria *_dropped[50];
-		static			unsigned int _totalNbDropp;
+		static			unsigned int _totalNbDrop;
 		//-------------------- Simple variables -----------------------------//
 		std::string		_name;
 		unsigned int 	_nbMaterias;
@@ -36,21 +36,21 @@ class ICharacter
 		
 		//-------------------- Set/get --------------------------------------//
 			//----- Getters
-		std::string  const &getName() const;
+		virtual 	std::string  const &getName() const = 0;
 		AMateria* 	 const *getDrop() const;
 		AMateria*	 const *getStuff() const;
 		unsigned int const &getNbMat() const;
 		unsigned int const &getNbMatDrop() const;
 			//----- Setters
-		void	setName(std::string name);
-		void	setDrop();
-		void	setStuff();
-		void	setNbMat();
-		void	setNbMatDrop();
+		void				setName(std::string name);
+		void				setDrop();
+		void				setStuff();
+		void				setNbMat();
+		void				setNbMatDrop();
 		//-------------------- Cons/Des -------------------------------------//
-	    ICharacter();
-	    ICharacter(ICharacter const &src);
-	    ~ICharacter();
+				ICharacter();
+	    		ICharacter(ICharacter const &src);
+	   			~ICharacter();
 		//-------------------- Operators ------------------------------------//
 	    ICharacter& operator=(ICharacter const &instance);
 };

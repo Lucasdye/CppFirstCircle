@@ -19,9 +19,9 @@ void Character::unequip(int idx)
 	if (idxParsing(3, idx))
 		return ;
 	if (_nbMaterias == 0)
-		return ((void)(std::cout << RED <<  "Can't unequip Character's equipement, it's empty" << std::endl));
+		return ((void)(std::cout << BLUE <<  "Can't unequip Character's equipement, it's empty" << std::endl));
 	//---------- Dropping item
-	if (_nbMateriasDrop >= 50)
+	if (_nbMateriasDrop == 50)
 	{
 		//---------- Free memory
 		while (_nbMateriasDrop != 0)

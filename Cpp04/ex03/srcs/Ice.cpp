@@ -13,7 +13,7 @@
 #include "../incs/base.hpp"
 
 //-------------------- Member funcs -----------------------------------------//
-Ice* Ice::clone() const
+Ice*	Ice::clone() const//OK
 {
 	Ice *cpy;
 
@@ -21,7 +21,7 @@ Ice* Ice::clone() const
 	return (cpy);
 }
 
-void Ice::use(ICharacter &target)
+void	Ice::use(ICharacter &target)//OK
 {
 	std::cout << "* shoots an ice bolt at" << " " << target.getName() << std::endl;
 	return ;
@@ -45,25 +45,25 @@ Ice::Ice() : AMateria()
 }
 
 
-Ice::Ice(Ice const &src) : Ice()
+Ice::Ice(Ice const &src) : Ice()//OK
 {
 	std::cout << "Copy constructor called for Ice" << std::endl;
 	return ;
 }
 
-Ice::~Ice()
+Ice::~Ice()//OK
 {
 	std::cout << "Destructor called for Ice" << std::endl;
 	return ;
 }
 
 //-------------------- Operators --------------------------------------------//
-Ice&	Ice::operator=(Ice const & instance)
+Ice&	Ice::operator=(Ice const& instance)
 {
 	std::cout << "Assignment operator called for Ice" << std::endl;
 	if (this != &instance)
 	{
-		
+		_type = instance._type;	
 	}
 	return *this;
 }
