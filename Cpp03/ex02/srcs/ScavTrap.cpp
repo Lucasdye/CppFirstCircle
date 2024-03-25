@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 16:33:47 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/01 16:49:09 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:17:28 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 void	ScavTrap::attack(const std::string &target)
 {
 	if (_energyPoints == 0)
-		std::cout << _name << " has no energy left to attack ! 🪫" << std::endl;
+		std::cout << "Scavenger " << _name << " has no energy left to attack " << target << " 🪫" << std::endl;
 	else if (_hitPoints == 0)
-		std::cout << _name << " Can't attack, his dead ! 💀" << std::endl;
+		std::cout << "Scavenger " <<_name << " Can't attack " << target << ", he is dead ! 💀" << std::endl;
 	else
 	{	
 		std::cout << "Scavenger "<< _name << " attacks " <<  target << ", causing " 
@@ -30,44 +30,52 @@ void	ScavTrap::attack(const std::string &target)
 
 void	ScavTrap::takeDamage(unsigned int amount)
 {
-	long long diff;
+long long diff;
 
-	if (_guardGate == false)
-		diff = static_cast<long long>(_hitPoints) - static_cast<long long>(amount);
+	if (_guardGate == true)
+		diff = static_cast<long long>(_hitPoints) - static_cast<long long>(roundf(amount / 2));
 	else
-		diff = static_cast<long long>(_hitPoints) - static_cast<long long>(roundf(static_cast<float>(amount) / 2));
-	if (diff <= 0)
-	{	
-		if (_hitPoints != 0)
-		{	
-			std::cout << _name << " dies from this attack ! 🪦" << std::endl;
-			_hitPoints = 0;
-		}
-		else
-			std::cout << _name << " Can't take damages, his already dead ! 💀" << std::endl;
-	}
-	else
+		diff = static_cast<long long>(_hitPoints) - amount;
+	if (_hitPoints != 0)
 	{
-		if (_guardGate == false)
-			_hitPoints -= amount;
-		else
-		{	
-			_hitPoints -= static_cast<unsigned int>(roundf(static_cast<float>(amount) / 2));
-			std::cout << _name << " has reduced inflicted damage by half 🛡️" << std::endl;
-
+		if (diff <= 0)
+		{
+				std::cout << _name << " dies from this attack ! 🪦" << std::endl;
+				_hitPoints = 0;
 		}
-		std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
+		else 
+		{	
+			if (_guardGate == false)
+				_hitPoints = _hitPoints - amount;
+			else
+			{	
+				_hitPoints = _hitPoints - static_cast<long long>(roundf(amount / 2));
+				std::cout << _name << " has reduced inflicted damage by half 🛡️" << std::endl;
+			}	
+			
+			std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
+		}
+	}
+	else if (_hitPoints == 0)
+	{	
+		std::cout << _name << " Can't take damages, he already dead ! 💀" 
+		<< std::endl;
 	}
 	return ;
 }
 
 void	ScavTrap::guardGate()
 {
-	if (_guardGate == false)
+	if (_guardGate == false && _energyPoints > 0)
 	{	
 		std::cout << "Scavenger " << _name << " has activated guard gate ability" << std::endl;
 		std::cout << "Scavenger " << _name << " reduces taken damages by 50%" << std::endl;
 		_guardGate = true;
+		_energyPoints -= 1;
+	}
+	else
+	{
+		std::cout << "Scavenger " << _name << "'s guard gate ability has been desactivated" << std::endl;
 	}
 }
 

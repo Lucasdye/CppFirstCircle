@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   FragTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/22 16:59:39 by lbouguet          #+#    #+#             */
+/*   Updated: 2024/03/22 17:20:56 by lbouguet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../incs/base.hpp"
 
 //-------------------- Methods ----------------------------------------------//
 void FragTrap::highFivesGuys()
 {
-	std::cout << "Fragger" << _name << "FragTrap requests a positive high five! Don't leave them hanging! 🖐️😄"
+	std::cout << "Fragger " << _name << " FragTrap requests a positive high five! 🖐️"
 	<< std::endl;
 	return ;
 }
@@ -11,9 +23,9 @@ void FragTrap::highFivesGuys()
 void FragTrap::attack(const std::string& target)
 {
 	if (_energyPoints == 0)
-		std::cout << "Fragger " << _name << " has no energy left to attack ! 🪫" << std::endl;
+		std::cout << "Fragger " << _name << " has no energy left to attack " << target << " 🪫" << std::endl;
 	else if (_hitPoints == 0)
-		std::cout << "Fraggee " << _name << " Can't attack, his dead ! 💀" << std::endl;
+		std::cout << "Fragger " <<_name << " Can't attack " << target << ", he is dead ! 💀" << std::endl;
 	else
 	{	
 		std::cout << "Fragger " << _name << " attacks " <<  target << ", causing "

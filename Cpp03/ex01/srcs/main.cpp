@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 14:45:03 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/21 17:07:10 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:27:02 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ int main(void)
 	ClapTrap	snake(ScavTrap("Snake 🥷 "));// <= une classe derivee peut
 										 	 // etre utilisee la ou un objet
 										 	 // de base est attendu (polymorphisme)
-	
-	// snake.setAttackDamage(-10);
-	// lucas.setAttackDamage(25);
+
 	std::cout << "<-_-^-_-^-_-^-_-^-_-^-_-^-_-^->\n" << std::endl;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		if ( i != 0 && i % 3 == 0)
 		{
@@ -56,7 +54,6 @@ int main(void)
 		std::cout << "\t\t" << fox.getName() << std::endl;
 	if (snake.getHitPoints())
 		std::cout << "\t\t" << snake.getName() << std::endl;
-	
-	return 0;
+	return (SUC);
 }
 

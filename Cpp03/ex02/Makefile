@@ -1,9 +1,9 @@
-NAME = prg
+NAME = Simulation
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98 
 OBJ_DIR = objs/
 
-SRC = srcs/main1.cpp srcs/ClapTrap.cpp srcs/ScavTrap.cpp srcs/FragTrap.cpp
+SRC = srcs/main.cpp srcs/ClapTrap.cpp srcs/ScavTrap.cpp srcs/FragTrap.cpp
 		
 OBJ = $(addprefix $(OBJ_DIR), $(notdir $(SRC:.cpp=.o)))
 

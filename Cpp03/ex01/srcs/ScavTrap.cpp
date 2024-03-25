@@ -6,19 +6,19 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2029/02/20 16:33:47 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/01 16:49:09 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/22 17:16:50 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/base.hpp"
 
 // -------------------- Methods ---------------------------------------------//
-void 	ScavTrap::attack(const std::string &target)// OK
+void 	ScavTrap::attack(const std::string &target)
 {
 	if (_energyPoints == 0)
-		std::cout << _name << " has no energy left to attack ! 🪫" << std::endl;
+		std::cout << "Scavenger " <<  _name << " has no energy left to attack " << target << " 🪫" << std::endl;
 	else if (_hitPoints == 0)
-		std::cout << _name << " Can't attack, his dead ! 💀" << std::endl;
+		std::cout << "Scavenger " << _name << " Can't attack " << target << ", he is dead ! 💀" << std::endl;
 	else
 	{	
 		std::cout << "Scavenger "<< _name << " attacks " <<  target << ", causing " 
@@ -28,15 +28,12 @@ void 	ScavTrap::attack(const std::string &target)// OK
 	return ;
 }
 
-void ScavTrap::takeDamage(unsigned int amount)//OK
+void	ScavTrap::takeDamage(unsigned int amount)
 {
 	long long diff;
 
 	if (_guardGate == true)
-	{
-		std::cout << _name << " has reduced inflicted damage by half 🛡️" << std::endl;
-		diff = static_cast<long long>(_hitPoints) - (amount / 2);
-	}
+		diff = static_cast<long long>(_hitPoints) - static_cast<long long>(roundf(amount / 2));
 	else
 		diff = static_cast<long long>(_hitPoints) - amount;
 	if (_hitPoints != 0)
@@ -48,13 +45,20 @@ void ScavTrap::takeDamage(unsigned int amount)//OK
 		}
 		else 
 		{	
-			_hitPoints = _hitPoints - amount;
+			if (_guardGate == false)
+				_hitPoints = _hitPoints - amount;
+			else
+			{	
+				_hitPoints = _hitPoints - static_cast<long long>(roundf(amount / 2));
+				std::cout << _name << " has reduced inflicted damage by half 🛡️" << std::endl;
+			}	
+			
 			std::cout << _name << " has " << _hitPoints << " hitpoints left 🧡" << std::endl;
 		}
 	}
 	else if (_hitPoints == 0)
 	{	
-		std::cout << _name << " Can't take damages, his already dead ! 💀" 
+		std::cout << _name << " Can't take damages, he is already dead ! 💀" 
 		<< std::endl;
 	}
 	return ;
@@ -62,11 +66,13 @@ void ScavTrap::takeDamage(unsigned int amount)//OK
 
 void	ScavTrap::guardGate()//OK
 {
-	if (_guardGate == false)
+	if (_guardGate == false && _energyPoints > 0)
 	{	
 		std::cout << "Scavenger " << _name << " has activated guard gate ability" << std::endl;
 		std::cout << "Scavenger " << _name << " reduces taken damages by 50%" << std::endl;
 		_guardGate = true;
+		if (_energyPoints > 0)
+			_energyPoints -= 1;
 	}
 	return ;
 }
@@ -82,7 +88,7 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 	return ;
 }
 
-ScavTrap::ScavTrap(ScavTrap const &src): ClapTrap(src)// TO DO
+ScavTrap::ScavTrap(ScavTrap const &src): ClapTrap(src)
 { 
 	std::cout << "Copy constructor called for ScavTrap		" << _name << std::endl;
 	_guardGate = src._guardGate;
