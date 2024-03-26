@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2005/03/20 16:02:42 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 17:56:31 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:12:25 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,25 @@
 
 #include "base.hpp"
 
-class MateriaSource
+class MateriaSource : public IMateriaSource
 {
-private:
-
-public:
-
-    MateriaSource();
-    MateriaSource(MateriaSource const & src);
-    MateriaSource& operator=(MateriaSource const & instance);
-    ~MateriaSource();
+	private:
+		AMateria		*_learnedMat[4];
+		size_t			_idx;
+		unsigned int	_nbMaterias;
+	
+	public:
+	//-------------------- Methods ------------------------------------------//
+	void 		learnMateria(AMateria*);
+	AMateria* 	createMateria(std::string const & type);
+	//-------------------- Set/get ------------------------------------------//
+	AMateria* 	getLearnedMat(int idx) const;
+	//-------------------- Cons/Des -----------------------------------------//
+		MateriaSource();
+    	MateriaSource(MateriaSource const & src);
+    	~MateriaSource();
+	//-------------------- Operators ----------------------------------------//
+    	MateriaSource& operator=(MateriaSource const & instance);
 
 };
 

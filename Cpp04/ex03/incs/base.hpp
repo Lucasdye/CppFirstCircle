@@ -24,13 +24,12 @@
 # include <limits.h>
 
 //-------------------- Classes  ---------------------------------------------//
-# include "Cure.hpp"
 # include "ICharacter.hpp"
-# include "Character.hpp"
 # include "AMateria.hpp"
-# include "Cure.hpp"
-# include "Ice.hpp"
 # include "IMateriaSource.hpp"
+# include "Cure.hpp"
+# include "Character.hpp"
+# include "Ice.hpp"
 # include "MateriaSource.hpp"
 # include "World.hpp"
 //-------------------- Aesthetics -------------------------------------------//

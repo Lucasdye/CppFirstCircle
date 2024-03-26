@@ -6,18 +6,21 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2005/03/20 12:08:04 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 17:57:25 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:02:05 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/base.hpp"
+
+class AMateria;
+
 
 //-------------------- Member funcs -----------------------------------------//
 Ice*	Ice::clone() const//OK
 {
 	Ice *cpy;
 
-	cpy = new Ice("ice");
+	cpy = new Ice(*this);
 	return (cpy);
 }
 
@@ -30,24 +33,26 @@ void	Ice::use(ICharacter &target)//OK
 //-------------------- Set/Get ----------------------------------------------//
 //-------------------- Constructor/Destructor -------------------------------//
 
-Ice::Ice(std::string type) : AMateria(type)
-{
-	std::cout << "Default constructor called for Ice" << std::endl;
-	_type = type;
-	return ;
-}
+// Ice::Ice(std::string type) : AMateria(type)
+// {
+// 	std::cout << "Default constructor called for Ice" << std::endl;
+// 	_type = type;
+// 	return ;
+// }
 
 Ice::Ice() : AMateria()
 {
 	std::cout << "Default constructor called for Ice" << std::endl;
-	_type = "none";
+	_type = "ice";
 	return ;
 }
 
 
-Ice::Ice(Ice const &src) : Ice()//OK
+Ice::Ice(Ice const &src) : AMateria()//OK
 {
 	std::cout << "Copy constructor called for Ice" << std::endl;
+	// _type = src._type;
+	*this = src;
 	return ;
 }
 

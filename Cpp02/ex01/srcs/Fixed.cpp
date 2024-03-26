@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2027/02/20 10:15:58 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/21 15:56:32 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:26:51 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,19 +128,19 @@ Fixed::Fixed(const float a): _fixedPointValue(0)
 Fixed::Fixed(const int a): _fixedPointValue(0)
 {
 	std::cout << "Int constructor called" << std::endl;
-	if (checkIntFixedPointOverflow(a))
-	{
-		std::cout << "The max value the fixed point integer can store has been set => 4194303" << std::endl;
-		_fixedPointValue =  8388607 << _staticFractionalBits;
-		return ;
-	}
-	else if (checkIntFixedPointUnderflow(a))
-	{
-		std::cout << "The max minimum value the fixed point integer can store has been set => -4194303" << std::endl;
-		_fixedPointValue = (-1) * (8388607 << _staticFractionalBits);
-		return ;
-	}
-	else
+	// if (checkIntFixedPointOverflow(a))
+	// {
+	// 	std::cout << "The max value the fixed point integer can store has been set => 4194303" << std::endl;
+	// 	_fixedPointValue =  8388607 << _staticFractionalBits;
+	// 	return ;
+	// }
+	// else if (checkIntFixedPointUnderflow(a))
+	// {
+	// 	std::cout << "The max minimum value the fixed point integer can store has been set => -4194303" << std::endl;
+	// 	_fixedPointValue = (-1) * (8388607 << _staticFractionalBits);
+	// 	return ;
+	// }
+	// else
 		_fixedPointValue = a << _staticFractionalBits;
 	return ;
 }

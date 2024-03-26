@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2005/03/20 15:56:06 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 17:56:14 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:11:38 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 #include "base.hpp"
 
 
-class IMateriaSource
+class IMateriaSource //interface
 {
 	protected:
-		AMateria	*_learnedMat[4];
 	
 	public:
 		//-------------------- Member funcs -------------------------------------//
@@ -28,12 +27,9 @@ class IMateriaSource
 		
 		//-------------------- Set/get ------------------------------------------//
 		//-------------------- Cons/Des -----------------------------------------//
-	    IMateriaSource();
-	    IMateriaSource(IMateriaSource const & src);
-	    ~IMateriaSource();
+	    virtual ~IMateriaSource();
 		
 		//-------------------- Operators ----------------------------------------//
-	    IMateriaSource& operator=(IMateriaSource const & instance);
 };
 
 #endif

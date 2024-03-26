@@ -1,10 +1,10 @@
-NAME = 
-CC = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
+NAME = prg
+CC = c++
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98 
 OBJ_DIR = objs/
 
-SRC =	srcs/main.cpp \
-
+SRC = srcs/main.cpp srcs/AMateria.cpp srcs/Character.cpp srcs/Cure.cpp srcs/funcs.cpp srcs/Ice.cpp srcs/ICharacter.cpp srcs/IMateriaSource.cpp srcs/MateriaSource.cpp
+		
 OBJ = $(addprefix $(OBJ_DIR), $(notdir $(SRC:.cpp=.o)))
 
 TOTAL_FILES := $(words $(SRC))
@@ -19,7 +19,7 @@ RESET = \033[0m
 define update_progress
 	$(eval CURRENT_FILE=$(shell echo $$(($(CURRENT_FILE)+1))))
 	$(eval PERCENTAGE=$(shell echo $$(($(CURRENT_FILE)*100/$(TOTAL_FILES)))))
-	@printf "$(GREEN)\rCompiling [%-20s] %d%%" "####################" "$(PERCENTAGE)"
+	@printf "$(GREEN)\rCompiling [%-20s] %d%%" "####################" "$(PERCENTAGE)" 
 endef
 
 all: $(OBJ_DIR) $(NAME)
