@@ -20,7 +20,6 @@ class Character : public ICharacter
 	private:
 		//-------------------- Static ---------------------------------------//
 		static	AMateria 		*_dropped[50];
-		static	unsigned int 	_totalNbDrop;
 		//-------------------- Simple variables -----------------------------//
 				std::string		_name;
 				unsigned int 	_nbMaterias;
@@ -37,17 +36,17 @@ class Character : public ICharacter
 	//-------------------- Set/get ------------------------------------------//
 			//----- Getters
 				std::string  const &getName() const;
-				AMateria* 	 const *getDrop() const;
+				int	 		 		getDrop() const;
 				AMateria*	 const *getStuff() const;
 				unsigned int const &getNbMat() const;
 				unsigned int const &getNbMatDrop() const;
 
 			//----- Setters
 				void				setName(std::string name);
-				void				setDrop();
-				void				setStuff();
-				void				setNbMat();
-				void				setNbMatDrop();
+				// void				setDrop();
+				// void				setStuff();
+				// void				setNbMat();
+				// void				setNbMatDrop();
 
 	//-------------------- Cons/Des ------------------------------------------//
     Character(std::string name);

@@ -14,6 +14,7 @@
 
 int main()
 {
+	{
 	IMateriaSource* src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
@@ -32,10 +33,41 @@ int main()
 	// me->use(8, *bob);
 	// bob->use(0, *me);
 	// bob->use(1, *me);
+	std::cout << BLUE <<"//-------------------- Deleting objects --------------------------------------//" << END_C << std::endl;
 	delete bob;
 	delete me;
 	delete src;
-	return 0;
+	//return 0;
+	}
+	{
+		std::cout << std::endl;
+		std::cout << "\t\tMain 2" << std::endl;
+		IMateriaSource* src = new MateriaSource(); src->learnMateria(new Ice()); src->learnMateria(new Cure());
+		ICharacter* me = new Character("me");
+   		AMateria* tmp;
+   		tmp = src->createMateria("ice");
+   		me->equip(tmp);
+   		tmp = src->createMateria("cure");
+   		me->equip(tmp);
+		me->unequip(0);
+		ICharacter* bob = new Character("bob"); me->use(0, *bob);
+		me->use(1, *bob);
+		std::cout << BLUE <<"//-------------------- Deleting objects --------------------------------------//" << END_C << std::endl;
+		delete bob; 
+		delete me; delete src;
+		//return 0;
+	}
+	{
+		std::cout << std::endl;
+		std::cout << "\t\tMain 3" << std::endl;
+		ICharacter* me = new Character("me");
+		for (int i = 0; i < 50; i++)
+		{
+			me->equip(new Ice());
+		}
+		//return 0;
+	}
+	return (0);
 }
 
 

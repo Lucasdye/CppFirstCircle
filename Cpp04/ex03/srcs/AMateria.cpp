@@ -26,6 +26,7 @@ std::string const &AMateria::getType() const
 
 void AMateria::setType(std::string type)
 {
+	
 	_type = type;
 	return ;
 }

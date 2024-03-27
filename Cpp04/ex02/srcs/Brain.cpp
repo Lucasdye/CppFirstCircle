@@ -115,7 +115,6 @@ Brain::Brain()
 	_ideas[97] = "motivation";
 	_ideas[98] = "ambition";
 	_ideas[99] = "success";
-	std::cout<< BLUE << "Done Brain" << END_C  <<std::endl;
 	return ;
 }
 

@@ -31,12 +31,6 @@ void Cure::use(ICharacter &target)
 
 //-------------------- Set/Get ----------------------------------------------//
 //-------------------- Constructor/Destructor -------------------------------//
-// Cure::Cure(std::string type): AMateria(type)
-// {
-// 	std::cout << "Default constructor called for Cure" << std::endl;
-// 	_type = type;
-// 	return ;
-// }
 
 Cure::Cure()
 {

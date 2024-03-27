@@ -12,55 +12,65 @@
 
 #include "../incs/base.hpp"
 
-AMateria* Character::_dropped[50] = {NULL};
-unsigned int Character::_totalNbDrop = 0;
+AMateria*		Character::_dropped[50] = {NULL};
+
 //-------------------- Member funcs -----------------------------------------//
 void Character::unequip(int idx)
 {
+	int idxDropped;
+
+	idxDropped = 0;
 	//---------- Parsing
-	if (idxParsing(3, idx))
+	if (idx > 3 || idx < 0)
 		return ;
-	if (_nbMaterias == 0)
-		return ((void)(std::cout << BLUE <<  "Can't unequip Character's equipement, it's empty" << END_C  <<std::endl));
+	if (_stuff[idx] == NULL)
+		return (static_cast<void>(std::cout << "Stuff index is empty" << std::endl));
 	//---------- Dropping item
-	if (_nbMateriasDrop == 50)
+	while (idxDropped < 50 && _dropped[idxDropped] != NULL)
+		idxDropped++;
+	if (idxDropped == 50)//Need to clear tab
 	{
-		//---------- Free memory
-		while (_nbMateriasDrop != 0)
-			delete _dropped[--_nbMateriasDrop];
-		//---------- Reinit dropped mat elements at nullptr
 		for (int i = 0; i < 50; i++)
+		{	
+			delete _dropped[i];
 			_dropped[i] = NULL;
+		}
 	}
-	_dropped[_nbMateriasDrop] = _stuff[idx];
+	else
+		_dropped[idxDropped] = _stuff[idx];
 	//---------- Unequiping
 	_stuff[idx] = NULL;
-	_nbMaterias--;
 	return ;
 }
 
 void Character::use(int idx, ICharacter &target)
 {
 	//---------- Parsing
-	if (idxParsing(3, idx))
+	if (idx > 3 || idx < 0)
 		return ;
-	if (_nbMaterias == 0)
-		return ((void)(std::cout << "No materia to be used" << std::endl));
+	if (_stuff[idx] == NULL)
+		return (static_cast<void>(std::cout << "No materia at this index to be used" << std::endl));
 	//---------- Use
-	_stuff[idx]->use(target); 
+	_stuff[idx]->use(target);
 	return ;
 }
 
 void Character::equip(AMateria* m)
 {
-	if (_nbMaterias <= 3)
+	int i;
+
+	i = 0;
+	if (m != NULL)
 	{
-		_stuff[_nbMaterias] = m->clone();
-		// std::cout << "test: " << _stuff[_nbMaterias]->getType() << std::endl;
-		_nbMaterias++;
+		while ( i < 4 && _stuff[i] != NULL)
+			i++;
+		if (i == 4)
+			(void)(std::cout << "no space left in stuff for materia" << std::endl);
+		else
+			_stuff[i] = m->clone();
+		delete (m);
 	}
-	delete (m);
-	return ((void)(std::cout << "no space left for materia" << std::endl));
+	return ;
 }
 
 //-------------------- Set/Get ----------------------------------------------//
@@ -71,34 +81,42 @@ void	Character::setName(std::string name)
 	return ;
 }
 
-void	Character::setDrop()
-{
-	return ;
-}
+// void	Character::setDrop()
+// {
+// 	return ;
+// }
 
-void	Character::setStuff()
-{
-	return ;
-}
+// void	Character::setStuff()
+// {
+// 	return ;
+// }
 
-void	Character::setNbMat()
-{
-	return ;
-}
+// void	Character::setNbMat()
+// {
+// 	return ;
+// }
 
-void	Character::setNbMatDrop()
-{
-	return ;
-}
+// void	Character::setNbMatDrop()
+// {
+// 	return ;
+// }
 	//----- Getters
 std::string  const &Character::getName() const
 {
 	return (_name);
 }
 
-AMateria* 	 const *Character::getDrop() const
+int		Character::getDrop() const
 {
-	return (_dropped);
+	int count;
+
+	count = 0;
+	for (int i = 0; i < 50; i++)
+	{
+		if (_dropped[i] != NULL)
+			count++;
+	}
+	return (count);
 }
 
 AMateria*	 const *Character::getStuff() const
@@ -120,7 +138,7 @@ unsigned int const &Character::getNbMatDrop() const
 
 Character::Character(Character const &src)
 {
-	std::cout << "Copy constructor called for Character" << std::endl;
+	std::cout << "Parametric constructor called for Character" << std::endl;
 	//---------- Copy basic var
 	// _name = src._name;
 	// _nbMaterias = src._nbMaterias;
@@ -158,7 +176,7 @@ Character::Character(std::string name): _name(name), _nbMaterias(0), _nbMaterias
 Character::~Character()
 {
 	std::cout << "Default constructor called for Character" << std::endl;
-	
+
 	//---------- Free _stuff memory
 	for (int i = 0; i < 4; i++)
 	{
@@ -166,12 +184,14 @@ Character::~Character()
 			delete _stuff[i];
 	}
 	//---------- Free Dropped materias from deleted player
-	for (int i = _totalNbDrop - 1; i != (static_cast<int>(_totalNbDrop - 1 )- static_cast<int>(_nbMateriasDrop)); i--)
+	for (int i = 0; i < 50; i++)
 	{
 		if (_dropped[i] != NULL)
+		{	
 			delete _dropped[i];
+			_dropped[i] = NULL;
+		}
 	}
-	_totalNbDrop -= _nbMateriasDrop;
 	return ;
 }
 

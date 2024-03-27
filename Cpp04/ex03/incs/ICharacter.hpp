@@ -18,6 +18,7 @@
 # include "base.hpp"
 
 class AMateria;
+class Character;
 
 class ICharacter //Interface
 {
@@ -36,7 +37,7 @@ class ICharacter //Interface
 		//-------------------- Cons/Des -------------------------------------//
 					//ICharacter();
 	    			//ICharacter(ICharacter const &src);
-	   			 virtual ~ICharacter() {}
+	   			virtual ~ICharacter() {}
 		//-------------------- Operators ------------------------------------//
 };
 
