@@ -1,5 +1,5 @@
 # CPP First Circle 42 (2024)
-This is the first projects in CPP (98) encountered in the 42 Common Core.
+This is the first projects in CPP (98) encountered in the 42 Common Core (2024).
 
 CPP00 - First use of cpp std classes and functions (std::string/std::toupper); Create a phonebook via class.
 CPP01 - Zombie video game oriented project. Heep and stack class creation understanding.
