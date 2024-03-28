@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:10 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 10:13:41 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:13:12 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,8 @@
 
 void Animal::makeSound() const
 {
-	if (_type == "Dog")
-		std::cout << "Waoufffff !" << std::endl;
-	else if (_type == "Cat")
-		std::cout << "Miaouuuuu !" << std::endl;
-	else
-		std::cout << "*Silence*" << std::endl;	
+	std::cout << "*Silence*" << std::endl;
+	return ;
 }
 
 //-------------------- Set/Get ----------------------------------------------//

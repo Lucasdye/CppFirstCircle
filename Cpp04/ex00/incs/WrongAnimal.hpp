@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 12:20:32 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 10:01:39 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:11:08 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class WrongAnimal
 	//-------------------- Cons/Des -----------------------------------------//
 	    			WrongAnimal();
 	    			WrongAnimal(WrongAnimal const & src);
-	    			~WrongAnimal();
+	virtual			~WrongAnimal();
 	//-------------------- Operators ----------------------------------------//
 	    WrongAnimal& operator=(WrongAnimal const & instance);
 };

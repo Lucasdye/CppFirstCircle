@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:10 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 17:26:40 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:36:47 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		main()
 	//--------------------- Tableau polymorph. statique d'éléments dynamiques-//
 	Dog	*dogs[25];
 	Cat	*cats[25];
-	Dog	*dogCpy = new Dog();
+	Dog	dogCpy;
 
 	srand(static_cast<size_t>(time(0)));
 	//--------------------- Remplissage dynamique ---------------------------//
@@ -76,19 +76,21 @@ int		main()
 	std::cout << BLUE << "Allocated dogs and cats" << END_C << std::endl;
 	dogIdeas(dogs);
 	catIdeas(cats);
-	*dogCpy = *dogs[0];
+	dogCpy = *dogs[0];
+	std::cout << std::endl;
+	std::cout << "dogCpy " << "is thinking about " << dogCpy.getThought(0)
+	<< " but he's mainly thinking about " << dogCpy.getMainThought() << std::endl;
+	std::cout << std::endl;
 	//--------------------- Deleting objects --------------------------------//
 	for (int i = 0; i < 25; i++) 
     	delete dogs[i];
 	for (int i = 0; i < 25; i++) 
     	delete cats[i];
 	//--------------------- Testing "=" operator ---------------------------//
-	std::cout << std::endl;
-	std::cout << "The dogCpy of Dog[0] " << "is thinking about " << dogs[0]->getThought(rand() % 100)
-	<< " but he's mainly thinking about " << dogs[0]->getMainThought() << std::endl;
-	std::cout << std::endl;
-	(void)dogCpy;
-	delete dogCpy;
+	// std::cout << std::endl;
+	// std::cout << "The dogCpy of Dog[0] " << "is thinking about " << dogs[0]->getThought(rand() % 100)
+	// << " but he's mainly thinking about " << dogs[0]->getMainThought() << std::endl;
+	// std::cout << std::endl;
 	return (SUC);
 }
 

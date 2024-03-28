@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 14:37:38 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 15:44:47 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:30:42 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ Brain::Brain()
 
 Brain::Brain(Brain const &src)
 {
-	std::cout << "Copy constructor called for Brain" << std::endl;
+	std::cout << ITALIC << "Copy constructor called for Brain" << END_C << std::endl;
+	_mainIdea = src._mainIdea;
 	for (int i = 0; i < 100; i++)
 		_ideas[i] = src._ideas[i];
 	return ;
@@ -149,9 +150,10 @@ std::string&	Brain::getMainIdea()
 
 Brain&	Brain::operator=(Brain const &instance)
 {
-	std::cout << "Assignment operator called for Brain" << std::endl;
+	std::cout << ITALIC << "Assignment operator called for Brain" << END_C << std::endl;
 	if (this != &instance)
 	{
+		_mainIdea = instance._mainIdea;
 		for (int i = 0; i < 100; i++)
 			_ideas[i] = instance._ideas[i];
 	}
@@ -160,7 +162,7 @@ Brain&	Brain::operator=(Brain const &instance)
 
 Brain::~Brain()
 {
-	std::cout << "Destructor called for Brain" << std::endl;
+	std::cout << ITALIC << "Destructor called for Brain" << END_C << std::endl;
 	return ;
 }
 

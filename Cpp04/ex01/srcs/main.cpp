@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:10 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 15:12:00 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:00:27 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	animalIdeas(Animal **animals)
 	Dog		*ptrDynCastDog;
 	size_t	idea1;
 	size_t	idea2;
+	
 
 	srand(static_cast<size_t>(time(0)));
 	idea1 = rand() % 100;
@@ -39,6 +40,7 @@ void	animalIdeas(Animal **animals)
 
 int	main()
 {
+	std::cout << BLUE << "\tTableau polymorphique statique d'éléments dynamiques tests" << END_C << std::endl;
 	//--------------------- Tableau polymorphique statique d'éléments dynamiques ---------------------------//
 	Animal 		*animals[50];
 
@@ -54,7 +56,14 @@ int	main()
 	//--------------------- Deleting objects ----------------------------------------------------------------//
 	for (int i = 0; i < 50; i++) 
     	delete animals[i];
-	//--------------------- Tableau polymorphique dynamique d'éléments dynamiques ---------------------------//
+
+	//--------------------- "=" operator tests --------------------------------------------------------------//
+	std::cout << BLUE << "\t\"=\" operator tests" << END_C << std::endl;
+	Dog basic1;
+	Dog tmp1 = basic1;
+	Cat basic2;
+	Cat tmp2 = basic2;
+	
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:10 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 10:16:02 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:28:45 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main()
 	const Animal 		*i = new Cat();
 	const Animal 		*j = new Dog();
 	const WrongAnimal 	*wcat = new WrongCat();
-	
+
 	std::cout << BLUE <<"Animal objects constructed from derived classes Cat and Dog (polymorphisme)//" << END_C << std::endl;
 	std::cout << meta->getType() << std::endl;
 	meta->makeSound();

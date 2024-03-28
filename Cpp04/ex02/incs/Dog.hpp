@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:22 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 15:32:38 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:04:53 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ class Dog : public Animal
 	
 	public:
 	//-------------------- Methods ------------------------------------------//
+	void 		makeSound() const;
 	//-------------------- Set/get ------------------------------------------//
 	std::string	getThought(size_t idx);
 	std::string	getMainThought();
-	void 		makeSound() const;
 	std::string	getType() const;
 	
 	//-------------------- Cons/Des -----------------------------------------//

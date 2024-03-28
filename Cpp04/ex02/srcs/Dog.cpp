@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:22 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 17:26:59 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:15:12 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ std::string	Dog::getMainThought()
 
 void Dog::makeSound() const
 {
-	std::cout << "Waoufffff !" << std::endl;
+	if (_type == "Dog")
+		std::cout << "Wouafffff !" << std::endl;
+	else
+		std::cout << "* Unknown type *" << std::endl;
 	return ;
 }
 
@@ -45,8 +48,11 @@ Dog::Dog(): Animal()
 
 Dog::Dog(Dog const &src) : Animal(src)
 {
+	_brain = new Brain(*src._brain);
+	
 	std::cout << ITALIC << "Copy constructor called for Dog" << END_C << std::endl;
 	_type = src._type;
+	return ;
 }
 
 Dog::~Dog()
@@ -58,21 +64,13 @@ Dog::~Dog()
 //-------------------- Operators ----------------------------------------------//
 Dog&	Dog::operator=(Dog const &instance)
 {
-	std::string *ideasSrc;
-	std::string *ideasDst;
-	
-	std::cout << "Assignment operator called for Animal" << std::endl;
+
+	std::cout << "Assignment operator called for Dog" << std::endl;
 	if (this != &instance)
 	{	
-		if (_brain == NULL)
-			std::cout << RED << "the brain pointer is null1" << std::endl;
-		if (instance._brain == NULL)
-			std::cout << RED << "the brain pointer is null2" << std::endl;
+		delete _brain;
+		_brain = new Brain(*instance._brain);
 		_type = instance._type;
-		ideasDst = _brain->getIdeas();
-		ideasSrc = instance._brain->getIdeas();
-		for (size_t i = 0; i < 100; i++)
-			ideasDst[i] = ideasSrc[i];
 	}
 	return *this;
 }

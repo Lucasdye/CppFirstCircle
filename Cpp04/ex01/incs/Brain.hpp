@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 14:37:38 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 14:00:48 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:57:12 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ class Brain
 		std::string	*getIdeas();
 	    Brain();
 	    Brain(Brain const & src);
-	    Brain& operator=(Brain const & instance);
 	    ~Brain();
+		Brain& operator=(Brain const & instance);
 };
 
 #endif

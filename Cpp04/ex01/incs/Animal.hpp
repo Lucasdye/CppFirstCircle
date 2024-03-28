@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:10 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/05 10:29:54 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:34:55 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ class Animal
 
 	public:
 	//-------------------- Methods ------------------------------------------//
-		void 		makeSound() const;
+	virtual		void 		makeSound() const;
 	//-------------------- Set/get ------------------------------------------//
-		std::string	getType() const;
+				std::string	getType() const;
 	//-------------------- Cons/Des -----------------------------------------//
-	   				Animal();
-	    			Animal(Animal const &src);
-	    virtual 	~Animal();
+	   						Animal();
+	    					Animal(Animal const &src);
+	virtual					~Animal();
 	//-------------------- Operators ----------------------------------------//
 	    Animal& operator=(Animal const & instance);
 };

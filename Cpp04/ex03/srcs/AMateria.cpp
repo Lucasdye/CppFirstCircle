@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2005/03/20 12:07:48 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/26 18:23:04 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:33:40 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void AMateria::use(ICharacter &target)
 	std::cout << "* heals" << " " << target.getName() << "’s wounds *" << std::endl;
 	return ;
 }
+
 //-------------------- Set/Get ----------------------------------------------//
 std::string const &AMateria::getType() const
 {
@@ -68,5 +69,3 @@ AMateria&	AMateria::operator=(AMateria const &instance)
 	}
 	return *this;
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 12:20:32 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 10:00:18 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:27:54 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 //-------------------- Member funcs -----------------------------------------//
 void WrongAnimal::makeSound() const
 {
-	if (_type == "Wrong animal")
-		std::cout << "	Miaffff !" << std::endl;
+	if (_type == "Wrong cat")
+		std::cout << "Wrong Miaouuuuu ! !" << std::endl;
 	else
-		std::cout << "*Silence*" << std::endl;	
+		std::cout << "* Unknown type *" << std::endl;
 }
 
 //-------------------- Set/Get ----------------------------------------------//
@@ -44,6 +44,7 @@ WrongAnimal::WrongAnimal(WrongAnimal const &src)
 WrongAnimal::~WrongAnimal()
 {
 	std::cout << ITALIC << "Destructor called for WrongAnimal" << END_C << std::endl;
+	
 	return ;
 }
 

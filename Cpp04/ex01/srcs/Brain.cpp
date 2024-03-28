@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 14:37:38 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 14:01:10 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:30:11 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Brain::Brain()
 {
-	std::cout << "Default constructor called for Brain" << std::endl;
+	std::cout << ITALIC << "Default constructor called for Brain" << END_C << std::endl;
 	_ideas[0] = "creativity";
 	_ideas[1] = "imagination";
 	_ideas[2] = "innovation";
@@ -120,7 +120,7 @@ Brain::Brain()
 
 Brain::Brain(Brain const &src)
 {
-	std::cout << "Copy constructor called for Brain" << std::endl;
+	std::cout << ITALIC << "Copy constructor called for Brain" << END_C << std::endl;
 	for (int i = 0; i < 100; i++)
 		_ideas[i] = src._ideas[i];
 	return ;
@@ -138,7 +138,7 @@ std::string	*Brain::getIdeas()
 
 Brain&	Brain::operator=(Brain const &instance)
 {
-	std::cout << "Assignment operator called for Brain" << std::endl;
+	std::cout << ITALIC << "Assignment operator called for Brain" << END_C << std::endl;
 	if (this != &instance)
 	{
 		for (int i = 0; i < 100; i++)
@@ -149,7 +149,7 @@ Brain&	Brain::operator=(Brain const &instance)
 
 Brain::~Brain()
 {
-	std::cout << "Destructor called for Brain" << std::endl;
+	std::cout << ITALIC <<  "Destructor called for Brain" << END_C << std::endl;
 	return ;
 }
 

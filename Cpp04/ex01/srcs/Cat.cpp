@@ -6,7 +6,7 @@
 /*   By: lbouguet <lbouguet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2004/03/20 10:14:18 by lbouguet          #+#    #+#             */
-/*   Updated: 2024/03/25 14:00:04 by lbouguet         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:19:12 by lbouguet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 
 //-------------------- Member funcs -------------------------------------------//
+void Cat::makeSound() const
+{
+	if (_type == "Cat")
+		std::cout << "Miaouuuuu !" << std::endl;
+	else
+		std::cout << "* Unknown type *" << std::endl;
+	return ;
+}
+
 std::string	Cat::getThought(size_t idx)
 {
 	return (_brain->getIdea(idx));
@@ -31,6 +40,8 @@ Cat::Cat(): Animal()
 Cat::Cat(Cat const &src) : Animal(src)
 {
 	std::cout << ITALIC << "Copy constructor called for Cat" << END_C << std::endl;
+	
+	_brain = new Brain(*src._brain);
 	_type = src._type;
 	return ;
 }
@@ -45,19 +56,12 @@ Cat::~Cat()
 //-------------------- Operators ----------------------------------------------//
 Cat&		Cat::operator=(Cat const& instance)
 {	
-	std::string *ideasSrc;
-	std::string *ideasDst;
-	
-	std::cout << "Assignment operator called for Animal" << std::endl;
+	std::cout << "Assignment operator called for Cat" << std::endl;
 	if (this != &instance)
-	{	
+	{
+		delete _brain;
+		_brain = new Brain(*instance._brain);
 		_type = instance._type;
-		ideasDst = _brain->getIdeas();
-		ideasSrc = instance._brain->getIdeas();
-		for (size_t i = 0; i < 100; i++)
-			ideasDst[i] = ideasSrc[i];
 	}
 	return *this;
 }
-
-
